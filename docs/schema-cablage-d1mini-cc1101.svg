@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="1040" viewBox="0 0 1100 1040" font-family="Helvetica, Arial, sans-serif" xmlns:c2pa="http://c2pa.org/manifest">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="550" y="42" text-anchor="middle" font-size="24" font-weight="bold" fill="#1a1a1a">Câblage D1 mini ↔ CC1101 868 MHz (lecteur compteur Izar)</text>
+<text x="550" y="70" text-anchor="middle" font-size="15" fill="#555">Même câblage pour D1 mini ESP32 (Diymore ESP32 Mini : repérer les broches IOxx, colonne GPIO ESP32) et D1 mini ESP8266.</text>
+<rect x="150" y="110" width="190" height="450" rx="12" fill="#1f5f99" stroke="#123a5e" stroke-width="3"/>
+<rect x="215.0" y="552" width="60" height="26" rx="4" fill="#bbb" stroke="#777"/>
+<text x="245.0" y="598" text-anchor="middle" font-size="12" fill="#555">USB</text>
+<text x="245.0" y="138" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">D1 mini</text>
+<text x="245.0" y="157" text-anchor="middle" font-size="11" fill="#d6e6f5">ESP32 ou ESP8266</text>
+<circle cx="166" cy="170" r="7" fill="#9fb8cf" stroke="#333"/>
+<text x="180" y="175" font-size="15" font-weight="bold" fill="#fff">RST</text>
+<circle cx="166" cy="218" r="7" fill="#9fb8cf" stroke="#333"/>
+<text x="180" y="223" font-size="15" font-weight="bold" fill="#fff">A0</text>
+<circle cx="166" cy="266" r="7" fill="#9fb8cf" stroke="#333"/>
+<text x="180" y="271" font-size="15" font-weight="bold" fill="#fff">D0</text>
+<circle cx="166" cy="314" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="180" y="319" font-size="15" font-weight="bold" fill="#fff">D5</text>
+<circle cx="166" cy="362" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="180" y="367" font-size="15" font-weight="bold" fill="#fff">D6</text>
+<circle cx="166" cy="410" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="180" y="415" font-size="15" font-weight="bold" fill="#fff">D7</text>
+<circle cx="166" cy="458" r="7" fill="#9fb8cf" stroke="#333"/>
+<text x="180" y="463" font-size="15" font-weight="bold" fill="#fff">D8</text>
+<circle cx="166" cy="506" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="180" y="511" font-size="15" font-weight="bold" fill="#fff">3V3</text>
+<circle cx="324" cy="170" r="7" fill="#9fb8cf" stroke="#333"/>
+<text x="310" y="175" text-anchor="end" font-size="15" font-weight="bold" fill="#fff">TX</text>
+<circle cx="324" cy="218" r="7" fill="#9fb8cf" stroke="#333"/>
+<text x="310" y="223" text-anchor="end" font-size="15" font-weight="bold" fill="#fff">RX</text>
+<circle cx="324" cy="266" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="310" y="271" text-anchor="end" font-size="15" font-weight="bold" fill="#fff">D1</text>
+<circle cx="324" cy="314" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="310" y="319" text-anchor="end" font-size="15" font-weight="bold" fill="#fff">D2</text>
+<circle cx="324" cy="362" r="7" fill="#9fb8cf" stroke="#333"/>
+<text x="310" y="367" text-anchor="end" font-size="15" font-weight="bold" fill="#fff">D3</text>
+<circle cx="324" cy="410" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="310" y="415" text-anchor="end" font-size="15" font-weight="bold" fill="#fff">D4</text>
+<circle cx="324" cy="458" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="310" y="463" text-anchor="end" font-size="15" font-weight="bold" fill="#fff">G</text>
+<circle cx="324" cy="506" r="7" fill="#9fb8cf" stroke="#333"/>
+<text x="310" y="511" text-anchor="end" font-size="15" font-weight="bold" fill="#fff">5V</text>
+<rect x="800" y="140" width="160" height="460" rx="8" fill="#2e7d32" stroke="#1b4d1e" stroke-width="3"/>
+<text x="895.0" y="170" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">CC1101</text>
+<text x="895.0" y="188" text-anchor="middle" font-size="11" fill="#d8f0d9">868 MHz</text>
+<line x1="930" y1="140" x2="930" y2="80" stroke="#444" stroke-width="5" stroke-linecap="round"/>
+<text x="940" y="100" font-size="12" fill="#444">antenne 868 MHz</text>
+<circle cx="816" cy="200" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="832" y="205" font-size="15" font-weight="bold" fill="#fff">GND</text>
+<circle cx="816" cy="248" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="832" y="253" font-size="15" font-weight="bold" fill="#fff">VCC</text>
+<circle cx="816" cy="296" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="832" y="301" font-size="15" font-weight="bold" fill="#fff">GDO0</text>
+<circle cx="816" cy="344" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="832" y="349" font-size="15" font-weight="bold" fill="#fff">CSN</text>
+<circle cx="816" cy="392" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="832" y="397" font-size="15" font-weight="bold" fill="#fff">SCK</text>
+<circle cx="816" cy="440" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="832" y="445" font-size="15" font-weight="bold" fill="#fff">MOSI</text>
+<circle cx="816" cy="488" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="832" y="493" font-size="15" font-weight="bold" fill="#fff">MISO</text>
+<circle cx="816" cy="536" r="7" fill="#ffd54a" stroke="#333"/>
+<text x="832" y="541" font-size="15" font-weight="bold" fill="#fff">GDO2</text>
+<text x="880.0" y="622" text-anchor="middle" font-size="11" fill="#555">ordre des broches variable selon</text>
+<text x="880.0" y="637" text-anchor="middle" font-size="11" fill="#555">le module : suivre la sérigraphie</text>
+<polyline points="324,458 400,458 400,200 816,200" fill="none" stroke="#222222" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="324" cy="458" r="4" fill="#222222"/>
+<circle cx="816" cy="200" r="4" fill="#222222"/>
+<polyline points="324,266 460,266 460,296 816,296" fill="none" stroke="#00838f" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="324" cy="266" r="4" fill="#00838f"/>
+<circle cx="816" cy="296" r="4" fill="#00838f"/>
+<polyline points="324,410 520,410 520,344 816,344" fill="none" stroke="#7b1fa2" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="324" cy="410" r="4" fill="#7b1fa2"/>
+<circle cx="816" cy="344" r="4" fill="#7b1fa2"/>
+<polyline points="324,314 700,314 700,536 816,536" fill="none" stroke="#e91e63" stroke-width="4" stroke-linejoin="round" stroke-dasharray="9 6"/>
+<circle cx="324" cy="314" r="4" fill="#e91e63"/>
+<circle cx="816" cy="536" r="4" fill="#e91e63"/>
+<polyline points="166,506 75,506 75,680 740,680 740,248 816,248" fill="none" stroke="#d32f2f" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="166" cy="506" r="4" fill="#d32f2f"/>
+<circle cx="816" cy="248" r="4" fill="#d32f2f"/>
+<polyline points="166,314 120,314 120,620 580,620 580,392 816,392" fill="none" stroke="#ef6c00" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="166" cy="314" r="4" fill="#ef6c00"/>
+<circle cx="816" cy="392" r="4" fill="#ef6c00"/>
+<polyline points="166,410 90,410 90,650 620,650 620,440 816,440" fill="none" stroke="#1565c0" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="166" cy="410" r="4" fill="#1565c0"/>
+<circle cx="816" cy="440" r="4" fill="#1565c0"/>
+<polyline points="166,362 105,362 105,635 660,635 660,488 816,488" fill="none" stroke="#2e9d3a" stroke-width="4" stroke-linejoin="round"/>
+<circle cx="166" cy="362" r="4" fill="#2e9d3a"/>
+<circle cx="816" cy="488" r="4" fill="#2e9d3a"/>
+<text x="60" y="720" font-size="17" font-weight="bold" fill="#1a1a1a">Correspondance des broches</text>
+<text x="60" y="750" font-size="14" font-weight="bold" fill="#333">CC1101</text>
+<text x="200" y="750" font-size="14" font-weight="bold" fill="#333">D1 mini</text>
+<text x="330" y="750" font-size="14" font-weight="bold" fill="#333">GPIO ESP32</text>
+<text x="480" y="750" font-size="14" font-weight="bold" fill="#333">GPIO ESP8266</text>
+<text x="640" y="750" font-size="14" font-weight="bold" fill="#333">Rôle</text>
+<line x1="55" y1="758" x2="1050" y2="758" stroke="#ccc"/>
+<rect x="40" y="766" width="12" height="12" fill="#d32f2f"/>
+<text x="60" y="777" font-size="14" fill="#222">VCC</text>
+<text x="200" y="777" font-size="14" fill="#222">3V3</text>
+<text x="330" y="777" font-size="14" fill="#222">3,3 V</text>
+<text x="480" y="777" font-size="14" fill="#222">3,3 V</text>
+<text x="640" y="777" font-size="14" fill="#222">alimentation 3,3 V uniquement</text>
+<rect x="40" y="793" width="12" height="12" fill="#222222"/>
+<text x="60" y="804" font-size="14" fill="#222">GND</text>
+<text x="200" y="804" font-size="14" fill="#222">G</text>
+<text x="330" y="804" font-size="14" fill="#222">GND</text>
+<text x="480" y="804" font-size="14" fill="#222">GND</text>
+<text x="640" y="804" font-size="14" fill="#222">masse</text>
+<rect x="40" y="820" width="12" height="12" fill="#ef6c00"/>
+<text x="60" y="831" font-size="14" fill="#222">SCK</text>
+<text x="200" y="831" font-size="14" fill="#222">D5</text>
+<text x="330" y="831" font-size="14" fill="#222">GPIO18</text>
+<text x="480" y="831" font-size="14" fill="#222">GPIO14</text>
+<text x="640" y="831" font-size="14" fill="#222">horloge SPI</text>
+<rect x="40" y="847" width="12" height="12" fill="#2e9d3a"/>
+<text x="60" y="858" font-size="14" fill="#222">MISO</text>
+<text x="200" y="858" font-size="14" fill="#222">D6</text>
+<text x="330" y="858" font-size="14" fill="#222">GPIO19</text>
+<text x="480" y="858" font-size="14" fill="#222">GPIO12</text>
+<text x="640" y="858" font-size="14" fill="#222">données CC1101 → ESP</text>
+<rect x="40" y="874" width="12" height="12" fill="#1565c0"/>
+<text x="60" y="885" font-size="14" fill="#222">MOSI</text>
+<text x="200" y="885" font-size="14" fill="#222">D7</text>
+<text x="330" y="885" font-size="14" fill="#222">GPIO23</text>
+<text x="480" y="885" font-size="14" fill="#222">GPIO13</text>
+<text x="640" y="885" font-size="14" fill="#222">données ESP → CC1101</text>
+<rect x="40" y="901" width="12" height="12" fill="#7b1fa2"/>
+<text x="60" y="912" font-size="14" fill="#222">CSN</text>
+<text x="200" y="912" font-size="14" fill="#222">D4</text>
+<text x="330" y="912" font-size="14" fill="#222">GPIO16</text>
+<text x="480" y="912" font-size="14" fill="#222">GPIO2</text>
+<text x="640" y="912" font-size="14" fill="#222">chip select</text>
+<rect x="40" y="928" width="12" height="12" fill="#00838f"/>
+<text x="60" y="939" font-size="14" fill="#222">GDO0</text>
+<text x="200" y="939" font-size="14" fill="#222">D1</text>
+<text x="330" y="939" font-size="14" fill="#222">GPIO22</text>
+<text x="480" y="939" font-size="14" fill="#222">GPIO5</text>
+<text x="640" y="939" font-size="14" fill="#222">interruption (irq_pin)</text>
+<rect x="40" y="955" width="12" height="12" fill="#e91e63"/>
+<text x="60" y="966" font-size="14" fill="#222">GDO2</text>
+<text x="200" y="966" font-size="14" fill="#222">D2</text>
+<text x="330" y="966" font-size="14" fill="#222">GPIO21</text>
+<text x="480" y="966" font-size="14" fill="#222">GPIO4</text>
+<text x="640" y="966" font-size="14" fill="#222">inutilisé en v5 (ESP32), requis en v4 (ESP8266)</text>
+<text x="60" y="1004" font-size="13" fill="#b71c1c" font-weight="bold">⚠ Ne jamais alimenter le CC1101 en 5 V. Fils courts (&lt; 10 cm). Antenne 868 MHz (pas 433 MHz), verticale, loin du métal.</text>
+<metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTpjMjYyYTI3YS0xOGRmLTQ2YzctYTliNi04ZGJmMTQ4ZmQxZTAAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaEVuw5+G92stUWomMIPvPb0AAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDoxODFiZWUwMC03OTY4LTQ3YzctYjQwNS02Yjg4MWNiMmExZGFscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNosk3Dg372C6BZSh2zrkKkIwAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggDsNTZC5qZNOrXsAtFB04hOD6CZZCAgVjcaB77aNUgYakZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaMtIeS13qbqFEcI58RcM0LwAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYILI3+bpbk7Duwq+uTqo+Y7g/dfr7tS4quHt/VaiQW68NZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GSsGZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOmMyNjJhMjdhLTE4ZGYtNDZjNy1hOWI2LThkYmYxNDhmZDFlMC9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjA2MjMzNWM3LTgzN2ItNDYwZS05OTJmLTY1ZWFlNWRkZWMyZXJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCAOw1NkLmpk06tewC0UHTiE4PoJlkICBWNxoHvto1SBhqJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggCu+D4b47Y/swmlNDWEfs/twmDt4ow+lKRbpD8G2nyACiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggrupfM2Swrm3lww6YhbTlbDovof9f3rVqJ9JONDma3/N0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQBdPPva1IDTDyUtZBbem+Z8oTrXGgnXZ1WwfhDveHmdT8evYM4A5ySeOdzTeLdzHzdqIDG6ol+RRKWEbmRjCjLs=</c2pa:manifest></metadata></svg>
