@@ -56,20 +56,16 @@ logger:
 
 api:
   encryption:
-    key: !secret api_encryption_key
+    key: !secret api_key
 
 ota:
   - platform: esphome
-    password: !secret ota_password
+    # Mises à jour OTA chiffrées avec la même clé que l'API (ESPHome ≥ 2026.11).
+    encryption: {}
 
 wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-  ap:
-    ssid: ${friendly_name} secours
-    password: !secret ap_password
-
-captive_portal:
+  ssid: !secret wifi-iot_ssid
+  password: !secret wifi-iot_password
 
 web_server:
   version: 3
