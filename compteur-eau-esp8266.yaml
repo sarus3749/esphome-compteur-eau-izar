@@ -1,0 +1,119 @@
+# =============================================================================
+#  VARIANTE ESP8266 : Wemos D1 mini (ESP8266) + CC1101 868 MHz
+#  Compteur Diehl Altair + module IZAR RC (wM-Bus T1, driver "izar")
+#
+#  La version 5 du composant (branche main) ne supporte que l'ESP32.
+#  Sur ESP8266 il faut la version 4 (branche version_4, framework Arduino),
+#  dont la syntaxe est différente : un bloc "wmbus:" unique qui gère aussi
+#  le SPI, et des capteurs "platform: wmbus" avec field sans unité.
+#  La v4 n'évolue plus : préférer le D1 mini ESP32 si possible.
+#
+#  Câblage (mêmes emplacements physiques que la version ESP32) :
+#    CC1101      D1 mini     GPIO ESP8266
+#    VCC   ----> 3V3         3,3 V (JAMAIS 5 V)
+#    GND   ----> G           GND
+#    SCK   ----> D5          GPIO14
+#    MISO  ----> D6          GPIO12
+#    MOSI  ----> D7          GPIO13
+#    CSN   ----> D4          GPIO2   (la LED bleue du D1 mini clignotera)
+#    GDO0  ----> D1          GPIO5
+#    GDO2  ----> D2          GPIO4   (obligatoire en v4)
+#  Ce sont les broches par défaut du composant v4 (PCB "CC1101 to D1 mini").
+# =============================================================================
+
+substitutions:
+  name: compteur-eau
+  friendly_name: Compteur eau
+  meter_id: "0x13903750"   # A VERIFIER dans les logs (log_all: True)
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+
+esp8266:
+  board: d1_mini
+
+external_components:
+  - source: github://SzczepanLeon/esphome-components@version_4
+    components: [wmbus]
+    refresh: 1d
+
+logger:
+  level: DEBUG
+
+api:
+  encryption:
+    key: !secret api_encryption_key
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  ap:
+    ssid: ${friendly_name} secours
+    password: !secret ap_password
+
+captive_portal:
+
+time:
+  - platform: homeassistant
+    id: time_ha
+
+wmbus:
+  clk_pin: GPIO14    # D5
+  miso_pin: GPIO12   # D6
+  mosi_pin: GPIO13   # D7
+  cs_pin: GPIO2      # D4
+  gdo0_pin: GPIO5    # D1
+  gdo2_pin: GPIO4    # D2
+  frequency: 868.950
+  log_all: True      # affiche toutes les trames reçues avec leur ID ;
+                     # passer à False une fois l'ID confirmé
+  all_drivers: False
+
+sensor:
+  - platform: wmbus
+    meter_id: ${meter_id}
+    type: izar
+    # key: "00112233445566778899AABBCCDDEEFF"   # seulement si nécessaire
+    sensors:
+      - name: "Index eau"
+        field: "total"
+        unit_of_measurement: "m³"
+        device_class: water
+        state_class: total_increasing
+        accuracy_decimals: 3
+        icon: "mdi:water"
+      - name: "Index fin du mois précédent"
+        field: "last_month_total"
+        unit_of_measurement: "m³"
+        device_class: water
+        state_class: total
+        accuracy_decimals: 3
+      - name: "Signal radio compteur"
+        field: "rssi"
+        unit_of_measurement: "dBm"
+        device_class: signal_strength
+        state_class: measurement
+        accuracy_decimals: 0
+        entity_category: diagnostic
+
+  - platform: wifi_signal
+    name: "Signal WiFi"
+    update_interval: 60s
+    entity_category: diagnostic
+
+text_sensor:
+  - platform: wmbus
+    meter_id: ${meter_id}
+    type: izar
+    sensors:
+      - name: "Alarmes en cours"
+        field: "current_alarms"
+
+binary_sensor:
+  - platform: status
+    name: "Statut"
