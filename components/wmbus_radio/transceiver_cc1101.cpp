@@ -127,7 +127,10 @@ void CC1101::configure_radio_() {
   // AGC control
   this->write_register(CC1101_AGCCTRL2, 0x43);
   this->write_register(CC1101_AGCCTRL1, 0x09);
-  this->write_register(CC1101_AGCCTRL0, 0xB5);
+  // AGCCTRL0 (datasheet SWRS061I p.87) : HYST 10, WAIT_TIME 11, AGC_FREEZE 00 (gain ajuste en
+  // permanence, valeur par defaut de la fiche), FILTER_LENGTH 01. Avant : 0xB5 (AGC_FREEZE 01 =
+  // gain fige des que le mot de synchro est trouve).
+  this->write_register(CC1101_AGCCTRL0, 0xB1);
 
   ESP_LOGVV(TAG, "configuring WOR");
   // Wake-on-Radio: disabled (but configured for compatibility)
