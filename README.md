@@ -84,10 +84,14 @@ substitutions:
   meter_id: "0x13903750"        # ID radio du compteur, à confirmer dans les logs
 
 packages:
-  compteur: github://sarus3749/esphome-compteur-eau-izar/compteur-eau-esp32.yaml@main
+  compteur:
+    url: https://github.com/sarus3749/esphome-compteur-eau-izar
+    ref: main
+    files: [compteur-eau-esp32.yaml]
+    refresh: always
 ```
 
-Avec `@main`, ESPHome rafraîchit la configuration au plus une fois par jour. Pour la figer, remplacez `main` par un tag ou un commit. Vous pouvez aussi copier directement [`compteur-eau-esp32.yaml`](compteur-eau-esp32.yaml) pour tout modifier.
+Avec `refresh: always`, ESPHome reprend la dernière version de `main` à chaque compilation (sans cette ligne, il la garde en cache 24 h, même après *Clean Build Files*). Pour la figer, remplacez `main` par un tag ou un commit. Vous pouvez aussi copier directement [`compteur-eau-esp32.yaml`](compteur-eau-esp32.yaml) pour tout modifier.
 
 ### 3. Compiler et flasher
 

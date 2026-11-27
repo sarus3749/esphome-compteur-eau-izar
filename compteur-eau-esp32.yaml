@@ -46,11 +46,11 @@ esp32:
 
 external_components:
   # Pilote radio corrigé pour le CC1101 (voir components/wmbus_radio/CORRECTIF.md)
-  # refresh: 0s : toujours la dernière version (sinon ESPHome garde une copie
+  # refresh: always : toujours la dernière version (sinon ESPHome garde une copie
   # en cache, que « Clean Build Files » n'efface pas).
   - source: github://sarus3749/esphome-compteur-eau-izar@main
     components: [wmbus_radio]
-    refresh: 0s
+    refresh: always
   - source: github://SzczepanLeon/esphome-components@main
     components: [wmbus_common, wmbus_meter]
     refresh: 1d
