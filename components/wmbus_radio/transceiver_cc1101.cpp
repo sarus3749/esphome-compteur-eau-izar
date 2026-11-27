@@ -40,8 +40,11 @@ void CC1101::setup() {
   this->write_register(CC1101_IOCFG0, CC1101_GDO_RXFIFO_THR | 0x40);
 
   ESP_LOGVV(TAG, "configuring FIFO threshold");
-  // FIFO threshold: 7 = RX FIFO >= 32 bytes, TX FIFO <= 31 bytes
-  this->write_register(CC1101_FIFOTHR, 0x07);
+  // TEST (dépôt esphome-compteur-eau-izar) : seuil RX à 48 octets au lieu de 32.
+  // Une trame T1 courte (45 octets codés, ex. Izar) est alors entièrement dans
+  // la FIFO avant la première interruption : aucune activité GDO0/SPI pendant
+  // sa réception. Les trames de plus de 64 octets codés débordent (ignorées).
+  this->write_register(CC1101_FIFOTHR, 0x0B);
 
   ESP_LOGVV(TAG, "configuring sync word");
   // Sync word for wM-Bus: 0x543D (with Manchester encoding: preamble 0x54)
