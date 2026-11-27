@@ -7,10 +7,11 @@
 #             sous Windows si le port USB n'apparaît pas)
 #             + module CC1101 868 MHz (avec antenne 868 MHz, pas 433 !)
 #
-#  Composant : wmbus de SzczepanLeon/esphome-components, branche version_4
-#  (framework Arduino), copié dans ce dépôt avec deux correctifs pour
-#  ESPHome 2026.11 (voir components/wmbus/CORRECTIF.md). Seuls les drivers
-#  izar et unknown sont inclus.
+#  Composant : wmbus de SzczepanLeon/esphome-components, branche version_3
+#  (framework Arduino), utilisé tel quel depuis le dépôt d'origine. C'est la
+#  branche CC1101 maintenue : bibliothèque SmartRC 3.0.2 et correctif de
+#  réception des trames T1 (PR #444 et #463 amont), compatible ESPHome 2026.11
+#  (PR #482).
 #
 #  Câblage (voir docs/schema-cablage-esp32-cc1101.svg) : tous les fils
 #  sur le même côté de la carte.
@@ -43,9 +44,7 @@ esp32:
     type: arduino
 
 external_components:
-  # refresh: always : toujours la dernière version de ce dépôt (sinon ESPHome
-  # garde une copie en cache, que « Clean Build Files » n'efface pas).
-  - source: github://sarus3749/esphome-compteur-eau-izar@main
+  - source: github://SzczepanLeon/esphome-components@version_3
     components: [wmbus]
     refresh: always
 
@@ -83,60 +82,46 @@ wmbus:
   gdo0_pin: GPIO26
   gdo2_pin: GPIO33
   frequency: 868.950
-  sync_mode: true
-  all_drivers: false
-  # Journalise toutes les trames reçues (compteurs voisins compris) avec leur
-  # ID : utile pour trouver l'ID du compteur, à passer à false ensuite.
-  log_all: true
+  # Journalise les trames des compteurs non configurés (voisins compris) avec
+  # leur ID : utile pour trouver l'ID du compteur, à passer à false ensuite.
+  log_unknown: true
 
 # -------------------------------------------------------------- Compteur -----
 sensor:
   # Pas de clé : le driver izar connaît les clés PRIOS par défaut de Diehl.
-  # Si les logs affichent "(izar) Decoding PRIOS data failed", ajouter
+  # Si les logs signalent un échec de décodage PRIOS, ajouter
   # key: !secret cle_compteur_eau (clé fournie par le distributeur).
   - platform: wmbus
     meter_id: ${meter_id}
     type: izar
-    sensors:
-      # Index total : c'est LE capteur à ajouter dans Paramètres > Tableaux de
-      # bord > Énergie > Consommation d'eau.
-      - name: "Index eau"
-        field: "total"
-        unit_of_measurement: "m³"
-        device_class: water
-        state_class: total_increasing
-        accuracy_decimals: 3
-        icon: "mdi:water"
-        # Le module Izar émet toutes les 8 à 32 s : on évite d'inonder la
-        # base HA tout en publiant immédiatement tout changement d'index.
-        filters:
-          - or:
-              - delta: 0.0005
-              - heartbeat: 5min
-      - name: "Index fin du mois précédent"
-        field: "last_month_total"
-        unit_of_measurement: "m³"
-        device_class: water
-        state_class: total
-        accuracy_decimals: 3
-        icon: "mdi:calendar-month"
-      - name: "Autonomie pile module radio"
-        field: "remaining_battery_life"
-        unit_of_measurement: "y"
-        accuracy_decimals: 1
-        entity_category: diagnostic
-        icon: "mdi:battery-clock"
-      - name: "Période d'émission"
-        field: "transmit_period"
-        unit_of_measurement: "s"
-        entity_category: diagnostic
-      - name: "Signal radio compteur"
-        field: "rssi"
-        unit_of_measurement: "dBm"
-        device_class: signal_strength
-        state_class: measurement
-        accuracy_decimals: 0
-        entity_category: diagnostic
+    add_prefix: false
+    # Index total : c'est LE capteur à ajouter dans Paramètres > Tableaux de
+    # bord > Énergie > Consommation d'eau.
+    total_water_m3:
+      name: "Index eau"
+      # Le module Izar émet toutes les 8 à 32 s : on évite d'inonder la
+      # base HA tout en publiant immédiatement tout changement d'index.
+      filters:
+        - or:
+            - delta: 0.0005
+            - heartbeat: 5min
+    last_month_total_water_m3:
+      name: "Index fin du mois précédent"
+      state_class: total
+      icon: "mdi:calendar-month"
+    remaining_battery_life_y:
+      name: "Autonomie pile module radio"
+      entity_category: diagnostic
+    transmit_period_s:
+      name: "Période d'émission"
+      entity_category: diagnostic
+    current_alarms:
+      name: "Alarmes en cours"
+    previous_alarms:
+      name: "Alarmes précédentes"
+      entity_category: diagnostic
+    rssi:
+      name: "Signal radio compteur"
 
   - platform: wifi_signal
     name: "Signal WiFi"
@@ -146,21 +131,6 @@ sensor:
   - platform: uptime
     name: "Uptime"
     entity_category: diagnostic
-
-text_sensor:
-  - platform: wmbus
-    meter_id: ${meter_id}
-    type: izar
-    sensors:
-      - name: "Alarmes en cours"
-        field: "current_alarms"
-        icon: "mdi:alert"
-      - name: "Alarmes précédentes"
-        field: "previous_alarms"
-        entity_category: diagnostic
-      - name: "Date du relevé mensuel"
-        field: "last_month_measure_date"
-        entity_category: diagnostic
 
 binary_sensor:
   - platform: status
