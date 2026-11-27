@@ -44,13 +44,8 @@ esp32:
     type: esp-idf
 
 external_components:
-  # wmbus_radio : copie corrigée (lecture de la FIFO du CC1101), voir
-  # components/wmbus_radio/CORRECTIF.md dans ce dépôt
-  - source: github://sarus3749/esphome-compteur-eau-izar@main
-    components: [wmbus_radio]
-    refresh: 1d
   - source: github://SzczepanLeon/esphome-components@main
-    components: [wmbus_common, wmbus_meter]
+    components: [wmbus_radio, wmbus_common, wmbus_meter]
     refresh: 1d
 
 logger:
