@@ -157,6 +157,8 @@
 #define WMBUS_PREAMBLE                  0x54
 // Trame T1 format A d'un compteur Izar (L = 0x19) : 30 octets avant codage, 45 après 3 parmi 6
 #define WMBUS_T1_IZAR_ENCODED_LEN       45
+// Durée de la trame dans l'air : 45 octets x 8 bits à 100 kbit/s = 3,6 ms, plus 0,8 ms de marge
+#define WMBUS_T1_IZAR_AIR_TIME_US       4400
 
 namespace esphome {
 namespace wmbus_radio {
