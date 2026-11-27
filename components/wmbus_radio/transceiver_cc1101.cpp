@@ -36,15 +36,16 @@ void CC1101::setup() {
   this->write_register(CC1101_IOCFG2, CC1101_GDO_SYNC_WORD | 0x40);
   // GDO1: High impedance (unused, default)
   this->write_register(CC1101_IOCFG1, CC1101_GDO_HI_Z);
-  // GDO0: RXFIFO threshold reached (IRQ pin), active low (inverted)
-  this->write_register(CC1101_IOCFG0, CC1101_GDO_RXFIFO_THR | 0x40);
+  // Correctif (dépôt esphome-compteur-eau-izar) : GDO0 signale le mot de
+  // synchro (actif bas, reste actif jusqu'au redémarrage RX) au lieu du seuil
+  // de FIFO. GDO0 ne bascule plus au 32e octet, en pleine trame, là où les
+  // trames T1 étaient systématiquement corrompues. Même principe que la PR
+  // CC1101 d'IoTLabs-pl/ESPHome-Components (#107).
+  this->write_register(CC1101_IOCFG0, CC1101_GDO_SYNC_WORD | 0x40);
 
   ESP_LOGVV(TAG, "configuring FIFO threshold");
-  // TEST (dépôt esphome-compteur-eau-izar) : seuil RX à 48 octets au lieu de 32.
-  // Une trame T1 courte (45 octets codés, ex. Izar) est alors entièrement dans
-  // la FIFO avant la première interruption : aucune activité GDO0/SPI pendant
-  // sa réception. Les trames de plus de 64 octets codés débordent (ignorées).
-  this->write_register(CC1101_FIFOTHR, 0x0B);
+  // FIFO threshold: 7 = RX FIFO >= 32 bytes, TX FIFO <= 31 bytes
+  this->write_register(CC1101_FIFOTHR, 0x07);
 
   ESP_LOGVV(TAG, "configuring sync word");
   // Sync word for wM-Bus: 0x543D (with Manchester encoding: preamble 0x54)
@@ -80,10 +81,12 @@ void CC1101::setup() {
   // Modem configuration for 100 kbps, 2-FSK, 50 kHz deviation
   // MDMCFG4: Channel bandwidth and data rate exponent
   // BW = f_xtal / (8 * (4 + CHANBW_M) * 2^CHANBW_E) = 26M / (8 * 4 * 4) = ~203 kHz
-  this->write_register(CC1101_MDMCFG4, 0x5C);
+  // Correctif : 232 kHz de bande, 100,0 kbit/s exacts (0x5C/0x04 donnait
+  // 325 kHz et 103,2 kbit/s), valeurs de la PR IoTLabs-pl #107.
+  this->write_register(CC1101_MDMCFG4, 0x7B);
   // MDMCFG3: Data rate mantissa
   // DRATE = ((256 + DRATE_M) * 2^DRATE_E) * f_xtal / 2^28 = 100 kbps
-  this->write_register(CC1101_MDMCFG3, 0x04);
+  this->write_register(CC1101_MDMCFG3, 0xF8);
   // MDMCFG2: Modulation format (2-FSK), sync mode (16/16 sync word bits)
   this->write_register(CC1101_MDMCFG2, 0x06);
   // MDMCFG1: FEC disabled, preamble 4 bytes
@@ -94,7 +97,8 @@ void CC1101::setup() {
   ESP_LOGVV(TAG, "configuring deviation");
   // Deviation: ~50 kHz
   // DEVIATION = (f_xtal / 2^17) * (8 + DEVIATION_M) * 2^DEVIATION_E
-  this->write_register(CC1101_DEVIATN, 0x44);
+  // Correctif : déviation 50,8 kHz (0x44 donnait 38 kHz ; T1 = ±50 kHz)
+  this->write_register(CC1101_DEVIATN, 0x50);
 
   ESP_LOGVV(TAG, "configuring state machine");
   // MCSM2: RX time qualifier enabled
@@ -305,45 +309,7 @@ int8_t CC1101::get_rssi() {
 
 const char *CC1101::get_name() { return TAG; }
 
-// TEST (dépôt esphome-compteur-eau-izar) : lit RXBYTES jusqu'à obtenir deux
-// valeurs identiques (errata CC1101 SWRZ020).
-uint8_t CC1101::read_rxbytes_stable_() {
-  uint8_t value = this->read_status_register(CC1101_RXBYTES);
-  for (uint8_t i = 0; i < 4; i++) {
-    uint8_t check = this->read_status_register(CC1101_RXBYTES);
-    if (check == value)
-      break;
-    value = check;
-  }
-  return value;
-}
-
 bool CC1101::read_in_task(uint8_t *buffer, size_t length, uint32_t offset) {
-  // TEST : pour la suite d'une trame courte (tient dans la FIFO de 64 octets),
-  // on n'interroge plus le CC1101 en boucle pendant la réception. On attend le
-  // temps nécessaire à l'arrivée des octets manquants (80 µs par octet codé
-  // en mode T1), puis on lit tout d'un seul bloc : pas de trafic SPI pendant
-  // la fin de la trame et la FIFO n'est jamais vidée en cours de réception.
-  if (offset > 0 && length <= 56) {
-    for (uint8_t attempt = 0; attempt < 6; attempt++) {
-      uint8_t raw = this->read_rxbytes_stable_();
-      if (raw & 0x80) {
-        ESP_LOGW(TAG, "RX FIFO overflow (%u octets)", (unsigned) (raw & 0x7F));
-        this->restart_rx();
-        return false;
-      }
-      uint8_t available = raw & 0x7F;
-      if (available >= length) {
-        this->read_burst(CC1101_RXFIFO, buffer, length);
-        return true;
-      }
-      delayMicroseconds((length - available) * 80 + 300);
-    }
-    ESP_LOGW(TAG, "Trame incomplete : %u octets dans la FIFO, %u attendus",
-             (unsigned) (this->read_rxbytes_stable_() & 0x7F), (unsigned) length);
-    return false;
-  }
-
   size_t total = 0;
   uint32_t last_progress = millis();
 
