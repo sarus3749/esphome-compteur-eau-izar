@@ -27,3 +27,7 @@ Une trame T1 de format A d'un compteur Izar (`L = 0x19`) fait 30 octets, soit 45
 - les octets sont ensuite rendus au composant par morceaux (en-tête de 3 octets, puis le reste).
 
 Limite : seules les trames de 45 octets codés sont reçues en entier. Les autres modèles de compteurs, de longueur différente, sont rejetés (message `Trame trop courte`).
+
+## Registres d'origine rétablis (27/11/2026, soir)
+
+Après le passage à la longueur fixe, le journal ne montrait que du bruit : une « trame » de 45 octets toutes les secondes environ (RSSI vers -97 dBm), jamais de trame Izar valide. Seuls les registres d'origine (`MDMCFG4/3 = 0x5C/0x04`, `DEVIATN = 0x44`) avaient permis de recevoir de vraies trames (en-tête et CRC du 1er bloc valides) ; avec `0x7B/0xF8/0x50` de la PR IoTLabs, plus aucune n'était détectée. Ces trois valeurs sont donc revenues à l'origine, et seuls IOCFG0 (mot de synchro) et la longueur fixe restent modifiés.
