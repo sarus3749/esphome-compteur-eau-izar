@@ -358,6 +358,9 @@ bool CC1101::read_in_task(uint8_t *buffer, size_t length, uint32_t offset) {
           this->read_burst(CC1101_RXFIFO, buffer + total, final_bytes);
           total += final_bytes;
         }
+        if (total < length)
+          ESP_LOGW(TAG, "Packet ended early (MARCSTATE 0x%02X) after %lu bytes (need %lu)",
+                   marcstate, (unsigned long)(total + offset), (unsigned long)(length + offset));
         break;
       }
     }
