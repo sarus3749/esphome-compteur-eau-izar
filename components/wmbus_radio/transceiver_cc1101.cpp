@@ -92,16 +92,14 @@ void CC1101::configure_radio_() {
   // Modem configuration for 100 kbps, 2-FSK, 50 kHz deviation
   // MDMCFG4: Channel bandwidth and data rate exponent
   // BW = f_xtal / (8 * (4 + CHANBW_M) * 2^CHANBW_E) = 26M / (8 * 4 * 4) = ~203 kHz
-  // Valeurs d'origine (325 kHz de bande, 103,2 kbit/s) : seules avec lesquelles de vraies
-  // trames Izar (en-tête et CRC du 1er bloc valides) ont été reçues sur ce matériel. Avec
-  // 0x7B/0xF8/0x50 (PR IoTLabs-pl #107), plus aucune vraie trame n'était détectée.
-  // Débit exact : 0x5B/0xF8 = 99,98 kbit/s avec la même bande de 325 kHz (0x5C/0x04 donnait
-  // 103,2 kbit/s : l'instant d'échantillonnage dérive de 3 % par bit, soit une demi-période
-  // au bout de 16 bits, là où les trames reçues commencent à avoir des bits faux).
-  this->write_register(CC1101_MDMCFG4, 0x5B);
+  // 0x5C / 0x04 (325 kHz de bande, 103,2 kbit/s) : valeurs de TI (note SWRA234A, mode T) et de
+  // toutes les configurations CC1101 T1 publiées qui fonctionnent, dont une pour Izar
+  // (maciekn/izar-wmbus-esp, Albert221/wmbus-cc1101-esphome, ryszardlet/esphome-wmbus-cc1101).
+  // Le 0x5B/0xF8 (99,98 kbit/s) essayé avant (PR #22) ne venait d'aucune source : le CC1101
+  // resynchronise lui-même l'horloge bit (BSCFG) bien au-delà de 3 % d'écart.
+  this->write_register(CC1101_MDMCFG4, 0x5C);
   // MDMCFG3: Data rate mantissa
-  // DRATE = ((256 + DRATE_M) * 2^DRATE_E) * f_xtal / 2^28 = 100 kbps
-  this->write_register(CC1101_MDMCFG3, 0xF8);
+  this->write_register(CC1101_MDMCFG3, 0x04);
   // MDMCFG2: Modulation format (2-FSK), sync mode (16/16 sync word bits)
   this->write_register(CC1101_MDMCFG2, 0x06);
   // MDMCFG1: FEC disabled, preamble 4 bytes
