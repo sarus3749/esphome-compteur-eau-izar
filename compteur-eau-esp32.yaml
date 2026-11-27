@@ -12,26 +12,25 @@
 #    - wmbus_meter  : décode les télégrammes d'un compteur donné
 #    - wmbus_common : code wmbusmeters (drivers)
 #  La v5 ne tourne que sur ESP32 avec le framework esp-idf.
-#  Pour un D1 mini ESP8266, utiliser compteur-eau-d1mini-esp8266.yaml (v4).
 #
-#  Câblage (identique physiquement à la version ESP8266, voir schéma SVG) :
-#    CC1101      D1 mini32 (sérigraphie D1 mini)   GPIO ESP32
-#    VCC   ----> 3V3                               3,3 V  (JAMAIS 5 V)
-#    GND   ----> GND                               GND
-#    SCK   ----> D5                                GPIO18
-#    MISO  ----> D6                                GPIO19  (MISO = SO = GDO1)
-#    MOSI  ----> D7                                GPIO23  (MOSI = SI)
-#    CSN   ----> D4                                GPIO16
-#    GDO0  ----> D1                                GPIO22  (interruption)
-#    GDO2  ----> D2                                GPIO21  (non utilisé en v5,
-#                                                           câblé pour compat. v4)
+#  Câblage (voir docs/schema-cablage-esp32-cc1101.svg) : tous les fils
+#  sur le même côté de la carte, bus SPI matériel VSPI.
+#    CC1101      ESP32 Mini (sérigraphie)   Emplacement (colonnes depuis l'USB-C)
+#    VCC   ----> 3V3                        rangée int. côté RST, 3e  (JAMAIS 5 V)
+#    GND   ----> GND                        rangée ext. côté RST, 10e
+#    MOSI  ----> IO23                       rangée int. côté RST, 5e
+#    SCLK  ----> IO18                       rangée int. côté RST, 7e
+#    MISO  ----> IO19                       rangée int. côté RST, 6e
+#    GDO2        non connecté (inutile avec le composant v5)
+#    GDO0  ----> IO26                       rangée int. côté RST, 8e (interruption)
+#    CSN   ----> IO5                        rangée int. côté RST, 4e
 # =============================================================================
 
 substitutions:
   name: compteur-eau
   friendly_name: Compteur eau
   # Identifiant radio du compteur. A VERIFIER dans les logs au premier
-  # démarrage (voir étape 2 dans LISEZMOI.md). Valeur de départ : le TxS/N
+  # démarrage (voir « Trouver l'ID du compteur » dans le README). Valeur de départ : le TxS/N
   # imprimé sur le module IZAR RC.
   meter_id: "0x13903750"
 
@@ -76,14 +75,16 @@ time:
 
 # ---------------------------------------------------------------- Radio ------
 spi:
-  clk_pin: GPIO18   # D5
-  miso_pin: GPIO19  # D6
-  mosi_pin: GPIO23  # D7
+  clk_pin: GPIO18   # VSPI SCK
+  miso_pin: GPIO19  # VSPI MISO
+  mosi_pin: GPIO23  # VSPI MOSI
 
 wmbus_radio:
   radio_type: CC1101
-  cs_pin: GPIO16    # D4
-  irq_pin: GPIO22   # D1  (GDO0)
+  cs_pin:
+    number: GPIO5   # VSPI CS (broche de démarrage, mais tirée au niveau haut : sans risque)
+    ignore_strapping_warning: true
+  irq_pin: GPIO26   # GDO0
   frequency: 868.95MHz
   # Journalise chaque trame reçue (tous compteurs du voisinage compris).
   # Utile pour trouver l'ID du compteur ; peut être retiré ensuite.
