@@ -25,6 +25,7 @@ public:
   void set_rssi(int8_t rssi);
 
   std::optional<Frame> convert_to_frame();
+  size_t raw_size() const { return this->data_.size(); }
 
 protected:
   std::vector<uint8_t> data_;
