@@ -178,6 +178,8 @@ public:
 protected:
   uint8_t wait_marcstate_(uint8_t state, uint32_t timeout_us);
   uint32_t last_idle_timeout_log_{0};
+  uint32_t last_reinit_ms_{0};
+  void configure_radio_();
   optional<uint8_t> read() override;
 
   // CC1101-specific SPI methods
