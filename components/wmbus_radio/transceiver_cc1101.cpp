@@ -325,8 +325,13 @@ bool CC1101::read_in_task(uint8_t *buffer, size_t length, uint32_t offset) {
   if (offset == 0) {
     this->frame_len_ = 0;
     this->frame_pos_ = 0;
-    // Le RSSI est valide juste après le mot de synchro.
-    this->last_rssi_ = (int8_t)this->read_status_register(CC1101_RSSI);
+    // AUCUN accès SPI tant que la trame est en cours. Sur ce montage, chaque accès au bus
+    // pendant la réception rend les bits suivants faux : les trames n'étaient justes que
+    // jusqu'au premier accès (32e octet avec la lecture au seuil de la FIFO d'origine, tout
+    // de suite avec la lecture continue du composant version_3, 3 premiers octets quand le
+    // RSSI était lu dès le réveil). On attend donc la durée de la trame sans toucher au bus :
+    // 45 octets codés à 100 kbit/s = 3,6 ms, plus une marge.
+    delayMicroseconds(WMBUS_T1_IZAR_AIR_TIME_US);
 
     const uint32_t start = micros();
     uint8_t marcstate;
@@ -341,6 +346,9 @@ bool CC1101::read_in_task(uint8_t *buffer, size_t length, uint32_t offset) {
       }
       delayMicroseconds(100);
     }
+
+    // Le RSSI est lu après la trame (le CC1101 garde la dernière valeur mesurée).
+    this->last_rssi_ = (int8_t)this->read_status_register(CC1101_RSSI);
 
     const uint8_t rxbytes_raw = this->read_status_register(CC1101_RXBYTES);
     if ((rxbytes_raw & 0x80) || marcstate == CC1101_MARCSTATE_RXFIFO_OVERFLOW) {
