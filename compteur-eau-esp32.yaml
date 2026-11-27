@@ -42,6 +42,10 @@ esp32:
   board: wemos_d1_mini32
   framework:
     type: arduino
+  # Compilation via PlatformIO : depuis 2026.11, ESPHome compile l'ESP32 avec
+  # ESP-IDF directement et refuse les bibliothèques sans library.json, comme
+  # wmbus-drivers utilisée par le composant wmbus (« Invalid PIO library »).
+  toolchain: platformio
 
 external_components:
   - source: github://SzczepanLeon/esphome-components@version_3
