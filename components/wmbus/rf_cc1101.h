@@ -84,6 +84,16 @@ namespace wmbus {
       bool task();
       WMbusFrame get_frame();
 
+      // Diagnostic (dépôt esphome-compteur-eau-izar) : compteurs affichés
+      // toutes les 30 s par WMBusComponent::loop().
+      uint32_t stat_sync{0};        // mot de synchro détecté (GDO2)
+      uint32_t stat_header{0};      // en-tête T1/C1 valide
+      uint32_t stat_bad_header{0};  // en-tête illisible
+      uint32_t stat_end{0};         // trame lue jusqu'au bout
+      uint32_t stat_ok{0};          // trame décodée (CRC OK)
+      bool gdo0_level() { return digitalRead(this->gdo0); }
+      bool gdo2_level() { return digitalRead(this->gdo2); }
+
     private:
       bool start(bool force = true);
 

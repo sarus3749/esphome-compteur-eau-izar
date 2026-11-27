@@ -64,6 +64,7 @@ namespace wmbus {
           if (digitalRead(this->gdo2)) { // assert when SYNC detected
             rxLoop.state = WAIT_FOR_DATA;
             sync_time_ = millis();
+            this->stat_sync++;
           }
           break;
 
@@ -113,9 +114,11 @@ namespace wmbus {
             }
             // Unknown mode, reinit loop
             else {
+              this->stat_bad_header++;
               rxLoop.state = INIT_RX;
               return false;
             }
+            this->stat_header++;
 
             rxLoop.bytesLeft = rxLoop.length - 3;
 
@@ -171,7 +174,9 @@ namespace wmbus {
         if (this->syncMode) {
           ESP_LOGV(TAG, "Synchronus mode enabled.");
         }
+        this->stat_end++;
         if (mBusDecode(data_in, this->returnFrame)) {
+          this->stat_ok++;
           rxLoop.complete = true;
           this->returnFrame.mode  = data_in.mode;
           this->returnFrame.block = data_in.block;

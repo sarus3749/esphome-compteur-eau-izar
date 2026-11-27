@@ -62,6 +62,15 @@ namespace wmbus {
 
   void WMBusComponent::loop() {
     this->led_handler();
+    // Diagnostic (dépôt esphome-compteur-eau-izar) : état de la réception.
+    static uint32_t last_stats = 0;
+    if (millis() - last_stats >= 30000) {
+      last_stats = millis();
+      ESP_LOGI(TAG, "Radio : synchros=%u entetes=%u (illisibles=%u) trames lues=%u decodees=%u | GDO0=%d GDO2=%d",
+               (unsigned) rf_mbus_.stat_sync, (unsigned) rf_mbus_.stat_header,
+               (unsigned) rf_mbus_.stat_bad_header, (unsigned) rf_mbus_.stat_end,
+               (unsigned) rf_mbus_.stat_ok, (int) rf_mbus_.gdo0_level(), (int) rf_mbus_.gdo2_level());
+    }
     if (rf_mbus_.task()) {
       ESP_LOGVV(TAG, "Have data from RF ...");
       WMbusFrame mbus_data = rf_mbus_.get_frame();
