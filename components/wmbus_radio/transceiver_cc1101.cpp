@@ -92,14 +92,12 @@ void CC1101::configure_radio_() {
   // Modem configuration for 100 kbps, 2-FSK, 50 kHz deviation
   // MDMCFG4: Channel bandwidth and data rate exponent
   // BW = f_xtal / (8 * (4 + CHANBW_M) * 2^CHANBW_E) = 26M / (8 * 4 * 4) = ~203 kHz
-  // 0x5C / 0x04 (325 kHz de bande, 103,2 kbit/s) : valeurs de TI (note SWRA234A, mode T) et de
-  // toutes les configurations CC1101 T1 publiées qui fonctionnent, dont une pour Izar
-  // (maciekn/izar-wmbus-esp, Albert221/wmbus-cc1101-esphome, ryszardlet/esphome-wmbus-cc1101).
-  // Le 0x5B/0xF8 (99,98 kbit/s) essayé avant (PR #22) ne venait d'aucune source : le CC1101
-  // resynchronise lui-même l'horloge bit (BSCFG) bien au-delà de 3 % d'écart.
-  this->write_register(CC1101_MDMCFG4, 0x5C);
+  // 0x5B / 0xF8 : 99,98 kbit/s, soit les 100 kchip/s du wM-Bus T1. Mesure d'Adrien : avec ces
+  // valeurs plusieurs trames etaient decodees avec CRC valide ; avec 0x5C/0x04 (103,15 kbit/s,
+  // PR #29) : 0 trame sur 7 en 5 minutes. On revient donc a 0x5B/0xF8 (retour de la PR #29).
+  this->write_register(CC1101_MDMCFG4, 0x5B);
   // MDMCFG3: Data rate mantissa
-  this->write_register(CC1101_MDMCFG3, 0x04);
+  this->write_register(CC1101_MDMCFG3, 0xF8);
   // MDMCFG2: Modulation format (2-FSK), sync mode (16/16 sync word bits)
   this->write_register(CC1101_MDMCFG2, 0x06);
   // MDMCFG1: FEC disabled, preamble 4 bytes
