@@ -7,23 +7,21 @@
 #             sous Windows si le port USB n'apparaît pas)
 #             + module CC1101 868 MHz (avec antenne 868 MHz, pas 433 !)
 #
-#  Composant : github.com/SzczepanLeon/esphome-components (version 5, branche main),
-#  sauf wmbus_radio, chargé depuis ce dépôt avec un correctif CC1101
-#    - wmbus_radio  : pilote la radio CC1101
-#    - wmbus_meter  : décode les télégrammes d'un compteur donné
-#    - wmbus_common : code wmbusmeters (drivers)
-#  La v5 ne tourne que sur ESP32 avec le framework esp-idf.
+#  Composant : wmbus de SzczepanLeon/esphome-components, branche version_4
+#  (framework Arduino), copié dans ce dépôt avec deux correctifs pour
+#  ESPHome 2026.11 (voir components/wmbus/CORRECTIF.md). Seuls les drivers
+#  izar et unknown sont inclus.
 #
 #  Câblage (voir docs/schema-cablage-esp32-cc1101.svg) : tous les fils
-#  sur le même côté de la carte, bus SPI matériel VSPI.
+#  sur le même côté de la carte.
 #    CC1101      ESP32 Mini (sérigraphie)   Emplacement (colonnes depuis l'USB-C)
 #    VCC   ----> 3V3                        rangée int. côté RST, 3e  (JAMAIS 5 V)
 #    GND   ----> GND                        rangée ext. côté RST, 10e
 #    MOSI  ----> IO23                       rangée int. côté RST, 5e
 #    SCLK  ----> IO18                       rangée int. côté RST, 7e
 #    MISO  ----> IO19                       rangée int. côté RST, 6e
-#    GDO2        non connecté (inutile avec le composant v5)
-#    GDO0  ----> IO26                       rangée int. côté RST, 8e (interruption)
+#    GDO2  ----> IO33                       rangée ext. côté RST, 6e (indispensable en v4)
+#    GDO0  ----> IO26                       rangée int. côté RST, 8e
 #    CSN   ----> IO5                        rangée int. côté RST, 4e
 # =============================================================================
 
@@ -31,8 +29,8 @@ substitutions:
   name: compteur-eau
   friendly_name: Compteur eau
   # Identifiant radio du compteur. A VERIFIER dans les logs au premier
-  # démarrage (voir « Trouver l'ID du compteur » dans le README). Valeur de départ : le TxS/N
-  # imprimé sur le module IZAR RC.
+  # démarrage (voir « Trouver l'ID du compteur » dans le README). Valeur de
+  # départ : le TxS/N imprimé sur le module IZAR RC.
   meter_id: "0x13903750"
 
 esphome:
@@ -42,27 +40,17 @@ esphome:
 esp32:
   board: wemos_d1_mini32
   framework:
-    type: esp-idf
+    type: arduino
 
 external_components:
-  # Pilote radio corrigé pour le CC1101 (voir components/wmbus_radio/CORRECTIF.md)
-  # refresh: always : toujours la dernière version (sinon ESPHome garde une copie
-  # en cache, que « Clean Build Files » n'efface pas).
+  # refresh: always : toujours la dernière version de ce dépôt (sinon ESPHome
+  # garde une copie en cache, que « Clean Build Files » n'efface pas).
   - source: github://sarus3749/esphome-compteur-eau-izar@main
-    components: [wmbus_radio]
+    components: [wmbus]
     refresh: always
-  - source: github://SzczepanLeon/esphome-components@main
-    components: [wmbus_common, wmbus_meter]
-    refresh: 1d
 
 logger:
   level: DEBUG
-  logs:
-    CC1101: WARN
-    # Mise au point : taille, RSSI et contenu de chaque trame reçue.
-    # Passer ces deux lignes à INFO une fois l'ID du compteur trouvé.
-    packet: DEBUG
-    wmbusmeters: DEBUG
 
 api:
   encryption:
@@ -80,104 +68,75 @@ wifi:
 web_server:
   version: 3
 
-# Le compteur Izar date les relevés mensuels ; HA fournit l'heure.
+# Obligatoire pour le composant wmbus (horodatage des trames).
 time:
   - platform: homeassistant
 
 # ---------------------------------------------------------------- Radio ------
-spi:
-  clk_pin: GPIO18   # VSPI SCK
-  miso_pin: GPIO19  # VSPI MISO
-  mosi_pin: GPIO23  # VSPI MOSI
-
-wmbus_radio:
-  radio_type: CC1101
+wmbus:
+  mosi_pin: GPIO23
+  miso_pin: GPIO19
+  clk_pin: GPIO18
   cs_pin:
-    number: GPIO5   # VSPI CS (broche de démarrage, mais tirée au niveau haut : sans risque)
+    number: GPIO5   # broche de démarrage, mais tirée au niveau haut : sans risque
     ignore_strapping_warning: true
-  irq_pin: GPIO26   # GDO0
-  frequency: 868.95MHz
-  # Journalise chaque trame reçue (tous compteurs du voisinage compris).
-  # Utile pour trouver l'ID du compteur ; peut être retiré ensuite.
-  on_frame:
-    - then:
-        - logger.log:
-            format: "Trame recue : RSSI=%d dBm, mode=%s, data=%s"
-            args: [ 'frame->rssi()', 'toString(frame->link_mode())', 'frame->as_hex().c_str()' ]
-
-# Ne compile que le driver Izar (gain de flash et de temps de compilation)
-wmbus_common:
-  drivers:
-    - izar
+  gdo0_pin: GPIO26
+  gdo2_pin: GPIO33
+  frequency: 868.950
+  sync_mode: true
+  all_drivers: false
+  # Journalise toutes les trames reçues (compteurs voisins compris) avec leur
+  # ID : utile pour trouver l'ID du compteur, à passer à false ensuite.
+  log_all: true
 
 # -------------------------------------------------------------- Compteur -----
-wmbus_meter:
-  - id: compteur_eau
+sensor:
+  # Pas de clé : le driver izar connaît les clés PRIOS par défaut de Diehl.
+  # Si les logs affichent "(izar) Decoding PRIOS data failed", ajouter
+  # key: !secret cle_compteur_eau (clé fournie par le distributeur).
+  - platform: wmbus
     meter_id: ${meter_id}
     type: izar
-    mode:
-      - T1
-    # Pas de clé : le driver izar connaît les clés PRIOS par défaut de Diehl.
-    # Si les logs affichent "(izar) Decoding PRIOS data failed", décommenter
-    # et renseigner la clé fournie par le distributeur (16 octets hex) :
-    # key: !secret cle_compteur_eau
-    on_telegram:
-      - logger.log: "Telegramme du compteur d'eau decode"
-
-sensor:
-  # Index total : c'est LE capteur à ajouter dans Paramètres > Tableaux de
-  # bord > Énergie > Consommation d'eau.
-  - platform: wmbus_meter
-    parent_id: compteur_eau
-    field: total_m3
-    name: "Index eau"
-    unit_of_measurement: "m³"
-    device_class: water
-    state_class: total_increasing
-    accuracy_decimals: 3
-    icon: "mdi:water"
-    # Le module Izar émet toutes les 8 à 32 s : on évite d'inonder la base HA
-    # tout en publiant immédiatement tout changement d'index.
-    filters:
-      - or:
-          - delta: 0.0005
-          - heartbeat: 5min
-
-  - platform: wmbus_meter
-    parent_id: compteur_eau
-    field: last_month_total_m3
-    name: "Index fin du mois précédent"
-    unit_of_measurement: "m³"
-    device_class: water
-    state_class: total
-    accuracy_decimals: 3
-    icon: "mdi:calendar-month"
-
-  - platform: wmbus_meter
-    parent_id: compteur_eau
-    field: remaining_battery_life_y
-    name: "Autonomie pile module radio"
-    unit_of_measurement: "ans"
-    accuracy_decimals: 1
-    entity_category: diagnostic
-    icon: "mdi:battery-clock"
-
-  - platform: wmbus_meter
-    parent_id: compteur_eau
-    field: transmit_period_s
-    name: "Période d'émission"
-    unit_of_measurement: "s"
-    entity_category: diagnostic
-
-  - platform: wmbus_meter
-    parent_id: compteur_eau
-    field: rssi_dbm
-    name: "Signal radio compteur"
-    unit_of_measurement: "dBm"
-    device_class: signal_strength
-    state_class: measurement
-    accuracy_decimals: 0
-    entity_category: diagnostic
+    sensors:
+      # Index total : c'est LE capteur à ajouter dans Paramètres > Tableaux de
+      # bord > Énergie > Consommation d'eau.
+      - name: "Index eau"
+        field: "total"
+        unit_of_measurement: "m³"
+        device_class: water
+        state_class: total_increasing
+        accuracy_decimals: 3
+        icon: "mdi:water"
+        # Le module Izar émet toutes les 8 à 32 s : on évite d'inonder la
+        # base HA tout en publiant immédiatement tout changement d'index.
+        filters:
+          - or:
+              - delta: 0.0005
+              - heartbeat: 5min
+      - name: "Index fin du mois précédent"
+        field: "last_month_total"
+        unit_of_measurement: "m³"
+        device_class: water
+        state_class: total
+        accuracy_decimals: 3
+        icon: "mdi:calendar-month"
+      - name: "Autonomie pile module radio"
+        field: "remaining_battery_life"
+        unit_of_measurement: "y"
+        accuracy_decimals: 1
+        entity_category: diagnostic
+        icon: "mdi:battery-clock"
+      - name: "Période d'émission"
+        field: "transmit_period"
+        unit_of_measurement: "s"
+        entity_category: diagnostic
+      - name: "Signal radio compteur"
+        field: "rssi"
+        unit_of_measurement: "dBm"
+        device_class: signal_strength
+        state_class: measurement
+        accuracy_decimals: 0
+        entity_category: diagnostic
 
   - platform: wifi_signal
     name: "Signal WiFi"
@@ -189,23 +148,19 @@ sensor:
     entity_category: diagnostic
 
 text_sensor:
-  - platform: wmbus_meter
-    parent_id: compteur_eau
-    field: current_alarms
-    name: "Alarmes en cours"
-    icon: "mdi:alert"
-
-  - platform: wmbus_meter
-    parent_id: compteur_eau
-    field: previous_alarms
-    name: "Alarmes précédentes"
-    entity_category: diagnostic
-
-  - platform: wmbus_meter
-    parent_id: compteur_eau
-    field: last_month_measure_date
-    name: "Date du relevé mensuel"
-    entity_category: diagnostic
+  - platform: wmbus
+    meter_id: ${meter_id}
+    type: izar
+    sensors:
+      - name: "Alarmes en cours"
+        field: "current_alarms"
+        icon: "mdi:alert"
+      - name: "Alarmes précédentes"
+        field: "previous_alarms"
+        entity_category: diagnostic
+      - name: "Date du relevé mensuel"
+        field: "last_month_measure_date"
+        entity_category: diagnostic
 
 binary_sensor:
   - platform: status

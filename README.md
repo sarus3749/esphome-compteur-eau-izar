@@ -1,6 +1,6 @@
 # Compteur d'eau Diehl IZAR → Home Assistant (ESPHome)
 
-Firmware ESPHome qui lit par radio l'index d'un compteur d'eau **Diehl Altair + module IZAR RC** (wM-Bus T1, 868,95 MHz, protocole PRIOS) avec un **ESP32 D1 mini (Diymore ESP32 Mini, ESP32-WROOM-32)** et un module **CC1101 868 MHz**. Il s'appuie sur le composant [`SzczepanLeon/esphome-components`](https://github.com/SzczepanLeon/esphome-components) (driver `izar` de wmbusmeters). L'index remonte nativement dans Home Assistant en m³, prêt pour le tableau de bord Eau.
+Firmware ESPHome qui lit par radio l'index d'un compteur d'eau **Diehl Altair + module IZAR RC** (wM-Bus T1, 868,95 MHz, protocole PRIOS) avec un **ESP32 D1 mini (Diymore ESP32 Mini, ESP32-WROOM-32)** et un module **CC1101 868 MHz**. Il s'appuie sur le composant `wmbus` de [`SzczepanLeon/esphome-components`](https://github.com/SzczepanLeon/esphome-components), version 4 (driver `izar` de wmbusmeters), copié dans ce dépôt avec deux correctifs pour ESPHome 2026.11. L'index remonte nativement dans Home Assistant en m³, prêt pour le tableau de bord Eau.
 
 ![ESPHome](https://img.shields.io/badge/ESPHome-2026.11-000?logo=esphome)
 ![Carte](https://img.shields.io/badge/carte-ESP32__D1__mini-blue)
@@ -20,7 +20,7 @@ Firmware ESPHome qui lit par radio l'index d'un compteur d'eau **Diehl Altair + 
 
 - **Diymore ESP32 Mini** (ESP32-WROOM-32, USB CH9102F), ou tout « D1 mini ESP32 » / MH-ET LIVE MiniKit.
 - **Module CC1101 868 MHz** avec son antenne. Attention : les modules les plus courants sont en 433 MHz.
-- 7 fils Dupont femelle-femelle courts (les deux cartes ont des broches mâles une fois les connecteurs soudés).
+- 8 fils Dupont femelle-femelle courts (les deux cartes ont des broches mâles une fois les connecteurs soudés).
 
 ## Câblage
 
@@ -28,7 +28,7 @@ Firmware ESPHome qui lit par radio l'index d'un compteur d'eau **Diehl Altair + 
 
 (version PNG : [`docs/schema-cablage-esp32-cc1101.png`](docs/schema-cablage-esp32-cc1101.png))
 
-Le schéma est à l'échelle et montre les 40 broches de l'ESP32 Mini et les 11 du CC1101 à leur place réelle. Les sept fils partent tous du même côté de l'ESP32, celui du bouton RST, et utilisent le bus SPI matériel VSPI.
+Le schéma est à l'échelle et montre les 40 broches de l'ESP32 Mini et les 11 du CC1101 à leur place réelle. Les huit fils partent tous du même côté de l'ESP32, celui du bouton RST.
 
 | CC1101 | ESP32 (sérigraphie) | Emplacement sur l'ESP32 Mini | Rôle | ESPHome |
 |---|---|---|---|---|
@@ -37,7 +37,7 @@ Le schéma est à l'échelle et montre les 40 broches de l'ESP32 Mini et les 11 
 | MOSI | IO23 | rangée intérieure côté RST, 5e | données ESP → CC1101 | `mosi_pin: GPIO23` |
 | SCLK | IO18 | rangée intérieure côté RST, 7e | horloge SPI | `clk_pin: GPIO18` |
 | MISO | IO19 | rangée intérieure côté RST, 6e | données CC1101 → ESP | `miso_pin: GPIO19` |
-| GDO2 | non connecté | | inutile avec le composant v5 | |
+| GDO2 | IO33 | rangée extérieure côté RST, 6e | détection de trame (**indispensable**) | `gdo2_pin: GPIO33` |
 | GDO0 | IO26 | rangée intérieure côté RST, 8e | interruption « trame reçue » | `irq_pin: GPIO26` |
 | CSN | IO5 | rangée intérieure côté RST, 4e | chip select | `cs_pin: GPIO5` |
 | ANT | antenne ressort | | antenne 868 MHz | |
@@ -98,16 +98,17 @@ Avec `refresh: always`, ESPHome reprend la dernière version de `main` à chaque
 - **Première fois, au câble USB** : *Install* → *Plug into this computer*, ou *Manual download* puis [ESPHome Web](https://web.esphome.io). Sous Windows, installez le pilote **CH9102 (CH343)** si le port n'apparaît pas. Si le flash ne démarre pas, maintenez le bouton BOOT au moment de la connexion.
 - **Ensuite** : *Install* → *Wirelessly*.
 
-La première compilation est longue (téléchargement d'esp-idf et du composant).
+La première compilation est longue (téléchargement du framework Arduino et du composant).
 
 ### 4. Trouver l'ID du compteur
 
 Le fichier part de `0x13903750` (le TxS/N imprimé sur le module), mais l'adresse radio réellement émise peut différer. Ouvrez les logs :
 
-- compteur trouvé : ligne `Telegramme du compteur d'eau decode`, et l'index s'affiche ;
-- sinon : `Telegram not handled by any handler` puis `Check if telegram with address XXXXXXXX can be parsed on: …`. Repérez l'adresse qui revient toutes les 8 à 32 s avec un bon RSSI, mettez-la dans `meter_id: "0xXXXXXXXX"` et réinstallez sans fil.
+- chaque trame reçue (compteurs voisins compris) donne une ligne `izar [0xXXXXXXXX] RSSI: -XXdBm T: …` ;
+- repérez l'ID qui revient toutes les 8 à 32 s avec le meilleur RSSI, mettez-le dans `meter_id: "0xXXXXXXXX"` et réinstallez sans fil ;
+- compteur trouvé : `Index eau` prend une valeur. Pour confirmer que c'est le vôtre, comparez-la avec le cadran du compteur.
 
-Chaque trame reçue (y compris celles des compteurs voisins) est aussi journalisée avec son RSSI. Une fois l'ID confirmé, vous pouvez retirer le bloc `on_frame` si vous utilisez une copie du fichier.
+Une fois l'ID confirmé, vous pouvez passer `log_all` à `false` dans une copie du fichier.
 
 ## Dans Home Assistant
 
@@ -136,10 +137,10 @@ Si les logs affichent `(izar) Decoding PRIOS data failed. Ignoring telegram.`, l
 
 ## Comment ça marche
 
-1. Le CC1101 écoute en continu 868,95 MHz en mode T1 et signale chaque trame sur GDO0.
-2. Le composant `wmbus_radio` décode le codage 3 parmi 6 et vérifie les CRC.
-3. `wmbus_meter` ne garde que les trames dont l'adresse correspond à `meter_id` et les passe au driver `izar` de wmbusmeters, qui désembrouille le contenu PRIOS.
-4. Chaque champ décodé (`total_m3`, `current_alarms`…) alimente un capteur ESPHome, envoyé à Home Assistant par l'API native.
+1. Le CC1101 écoute en continu 868,95 MHz en mode T1. GDO2 signale le début d'une trame, GDO0 le remplissage de sa mémoire tampon.
+2. Le composant `wmbus` décode le codage 3 parmi 6 et vérifie les CRC.
+3. Il ne garde que les trames dont l'adresse correspond à `meter_id` et les passe au driver `izar` de wmbusmeters, qui désembrouille le contenu PRIOS.
+4. Chaque champ décodé (`total`, `current_alarms`…) alimente un capteur ESPHome, envoyé à Home Assistant par l'API native.
 
 ## Fichiers
 
@@ -149,14 +150,14 @@ Si les logs affichent `(izar) Decoding PRIOS data failed. Ignoring telegram.`, l
 | [`exemples/compteur-eau.yaml`](exemples/compteur-eau.yaml) | Le fichier à créer dans ESPHome (3 substitutions) |
 | [`exemples/secrets.yaml.exemple`](exemples/secrets.yaml.exemple) | Les clés à mettre dans votre `secrets.yaml` |
 | [`docs/`](docs/) | Schéma de câblage (SVG + PNG) |
-| [`components/wmbus_radio/`](components/wmbus_radio/) | Copie corrigée du pilote radio CC1101, voir [`CORRECTIF.md`](components/wmbus_radio/CORRECTIF.md) |
+| [`components/wmbus/`](components/wmbus/) | Composant `wmbus` v4 corrigé pour ESPHome 2026.11, voir [`CORRECTIF.md`](components/wmbus/CORRECTIF.md) |
 
 ## État
 
-- Syntaxe vérifiée sur `SzczepanLeon/esphome-components` (v5, commit `76dda80` du 22/11/2026).
+- Composant `wmbus` de la branche `version_4` (commit `5f8090d`), corrigé pour ESPHome 2026.11 (voir [`CORRECTIF.md`](components/wmbus/CORRECTIF.md)).
 - La configuration passe `esphome config` (ESPHome 2026.11.1).
-- Compilation testée sur le matériel (ESP32 Mini + CC1101) : avec le pilote `wmbus_radio` d'origine, les trames Izar arrivent avec un en-tête correct mais deviennent du bruit à partir du 32e octet.
-- Ce dépôt charge donc une copie corrigée de `wmbus_radio` (interruption sur le mot de synchro, débit radio de 100 kbit/s, voir [`CORRECTIF.md`](components/wmbus_radio/CORRECTIF.md)). Les autres parties du composant viennent du dépôt d'origine. Correctif en cours de validation sur le matériel.
+- La v5 (`wmbus_radio`) a été essayée sur ce matériel : avec le CC1101, les trames Izar arrivaient corrompues à partir du 32e octet, comme chez d'autres utilisateurs. D'où le retour à la v4 et le fil GDO2.
+- Réception v4 en cours de validation sur le matériel.
 
 ## Licence
 
