@@ -156,7 +156,7 @@ Si les logs affichent `(izar) Decoding PRIOS data failed. Ignoring telegram.`, l
 - Composant v5 de `SzczepanLeon/esphome-components` (commit `76dda80` du 22/11/2026) pour tout sauf le pilote radio.
 - La configuration passe `esphome config` (ESPHome 2026.11.1). Le pilote CC1101 corrigé passe un contrôle de syntaxe C++ (compilation complète impossible hors de la machine d'installation).
 - Historique sur le matériel (ESP32 Mini + CC1101) : avec le pilote d'origine, les trames Izar arrivaient avec un en-tête correct mais devenaient du bruit à partir du 32e octet, quel que soit le réglage de la FIFO. La v4 et la v3 du composant `wmbus` (bibliothèque SmartRC) ont aussi été essayées : plantage au démarrage de la réception pour la v4, aucune trame décodée pour la v3.
-- Ce dépôt charge donc une copie de `wmbus_radio` avec un pilote CC1101 en **longueur fixe** (45 octets, la taille d'une trame Izar T1) : la trame entière est lue dans la FIFO une fois la réception terminée, voir [`CORRECTIF.md`](components/wmbus_radio/CORRECTIF.md). Réception en cours de validation sur le matériel.
+- Ce dépôt charge donc une copie de `wmbus_radio` avec un pilote CC1101 en **longueur fixe** (45 octets, la taille d'une trame Izar T1) : la trame entière est lue dans la FIFO une fois la réception terminée, voir [`CORRECTIF.md`](components/wmbus_radio/CORRECTIF.md). Réception validée sur le matériel : le compteur est décodé depuis le 28/11/2026 (la cause était la lecture de la FIFO en rafale, remplacée par une lecture octet par octet).
 
 ## Licence
 
