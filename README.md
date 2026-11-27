@@ -153,7 +153,7 @@ Si les logs affichent `(izar) Decoding PRIOS data failed. Ignoring telegram.`, l
 ## État
 
 - Composant `wmbus` de la branche amont `version_3`, sans modification : bibliothèque SmartRC 3.0.2 (PR #463), correctif de réception T1 (PR #444), compatibilité ESPHome 2026.11 (PR #482).
-- La configuration passe `esphome config` (ESPHome 2026.11.1).
+- La configuration passe `esphome config` (ESPHome 2026.11.1). Elle compile via PlatformIO (`toolchain: platformio`) : la chaîne ESP-IDF native d'ESPHome 2026.11 refuse la bibliothèque `wmbus-drivers`, qui n'a pas de `library.json`. Cette option est annoncée comme retirée en ESPHome 2027.2.
 - La v5 (`wmbus_radio`) a été essayée : avec le CC1101, les trames Izar arrivaient corrompues à partir du 32e octet, comme chez d'autres utilisateurs.
 - La v4 plantait au démarrage de la réception (watchdog) : sa bibliothèque SmartRC 2.5.7 n'est pas compatible avec le cœur Arduino ESP32 actuel. C'est ce que corrige la `version_3`.
 - Réception en cours de validation sur le matériel.
