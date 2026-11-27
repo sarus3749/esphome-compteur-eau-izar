@@ -57,7 +57,38 @@ external_components:
     refresh: always
 
 logger:
-  level: DEBUG
+  # Niveau VERBOSE uniquement pour la radio : montre pour chaque trame reçue
+  # sa longueur, RSSI/LQI, les octets bruts et le bloc dont le CRC échoue.
+  # Le reste reste en DEBUG.
+  level: VERBOSE
+  logs:
+    mbus: VERBOSE
+    rxLoop: VERBOSE
+    crc: VERBOSE
+    3of6: VERBOSE
+    wmbus: DEBUG
+    wifi: DEBUG
+    api: DEBUG
+    api.connection: DEBUG
+    sensor: DEBUG
+    pulse_counter: DEBUG
+    web_server: DEBUG
+    web_server_idf: DEBUG
+    web_server_base: DEBUG
+    mdns: DEBUG
+    network: DEBUG
+    time: DEBUG
+    safe_mode: DEBUG
+    esphome.ota: DEBUG
+    app: DEBUG
+    component: DEBUG
+    preferences: DEBUG
+    status: DEBUG
+    binary_sensor: DEBUG
+    uptime.sensor: DEBUG
+    wifi_signal.sensor: DEBUG
+    homeassistant.time: DEBUG
+    button: DEBUG
 
 api:
   encryption:
