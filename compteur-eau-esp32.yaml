@@ -81,6 +81,10 @@ wifi:
   # Le mode d'économie d'énergie WiFi peut rendre la carte injoignable pour les
   # connexions entrantes (mise à jour sans fil : « No route to host »).
   power_save_mode: none
+  # Puissance d'émission WiFi réduite au minimum (le point d'accès est tout près,
+  # -37 à -53 dBm) : les émissions WiFi à pleine puissance, à quelques
+  # centimètres du CC1101, peuvent perturber la réception en cours de trame.
+  output_power: 8.5dB
 
 web_server:
   version: 3
