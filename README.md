@@ -42,7 +42,7 @@ Le schéma est à l'échelle et montre les 40 broches de l'ESP32 Mini et les 11 
 | CSN | IO5 | rangée intérieure côté RST, 4e | chip select | `cs_pin: GPIO5` |
 | ANT | antenne ressort | | antenne 868 MHz | |
 
-Brochage complet de l'ESP32 Mini, vu de dessus, USB-C à gauche (colonnes 1 à 10 depuis l'USB-C) :
+Brochage complet de l'ESP32 Mini, vu côté composants (positions 1 à 10 en partant de l'USB-C) :
 
 | Rangée | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
 |---|---|---|---|---|---|---|---|---|---|---|
