@@ -52,7 +52,11 @@ esp32:
   toolchain: platformio
 
 external_components:
-  - source: github://SzczepanLeon/esphome-components@version_3
+  # Composant wmbus : copie de SzczepanLeon/esphome-components (branche
+  # version_3) dans components/wmbus, avec seulement trois lignes de journal
+  # ajoutées dans rf_cc1101.cpp (burst rejetée, trame abandonnée, fréquence).
+  # refresh: always : sinon ESPHome garde une copie en cache.
+  - source: github://sarus3749/esphome-compteur-eau-izar@main
     components: [wmbus]
     refresh: always
 
