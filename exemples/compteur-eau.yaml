@@ -1,5 +1,5 @@
 # Compteur d'eau Izar : seules les substitutions sont propres à votre installation.
-# La configuration complète vient du dépôt GitHub (version figée par ce qui suit @).
+# La configuration complète vient du dépôt GitHub .
 substitutions:
   name: compteur-eau            # nom réseau (minuscules, tirets)
   friendly_name: Compteur eau   # nom de l'appareil dans Home Assistant

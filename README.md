@@ -1,6 +1,6 @@
 # Compteur d'eau Diehl IZAR → Home Assistant (ESPHome)
 
-Firmware ESPHome qui lit par radio l'index d'un compteur d'eau **Diehl Altair + module IZAR RC** (wM-Bus T1, 868,95 MHz, protocole PRIOS) avec un **ESP32 D1 mini (Diymore ESP32 Mini, ESP32-WROOM-32)** et un module **CC1101 868 MHz**. Il s'appuie sur le composant `wmbus` de [`SzczepanLeon/esphome-components`](https://github.com/SzczepanLeon/esphome-components), version 4 (driver `izar` de wmbusmeters), copié dans ce dépôt avec deux correctifs pour ESPHome 2026.11. L'index remonte nativement dans Home Assistant en m³, prêt pour le tableau de bord Eau.
+Firmware ESPHome qui lit par radio l'index d'un compteur d'eau **Diehl Altair + module IZAR RC** (wM-Bus T1, 868,95 MHz, protocole PRIOS) avec un **ESP32 D1 mini (Diymore ESP32 Mini, ESP32-WROOM-32)** et un module **CC1101 868 MHz**. Il s'appuie sur le composant `wmbus` de [`SzczepanLeon/esphome-components`](https://github.com/SzczepanLeon/esphome-components), branche `version_3` (driver `izar` de wmbusmeters), utilisé tel quel depuis le dépôt d'origine : c'est la branche CC1101 maintenue, compatible ESPHome 2026.11. L'index remonte nativement dans Home Assistant en m³, prêt pour le tableau de bord Eau.
 
 ![ESPHome](https://img.shields.io/badge/ESPHome-2026.11-000?logo=esphome)
 ![Carte](https://img.shields.io/badge/carte-ESP32__D1__mini-blue)
@@ -104,11 +104,11 @@ La première compilation est longue (téléchargement du framework Arduino et du
 
 Le fichier part de `0x13903750` (le TxS/N imprimé sur le module), mais l'adresse radio réellement émise peut différer. Ouvrez les logs :
 
-- chaque trame reçue (compteurs voisins compris) donne une ligne `izar [0xXXXXXXXX] RSSI: -XXdBm T: …` ;
+- chaque trame d'un compteur non configuré (voisins compris) donne une ligne `Meter ID [0xXXXXXXXX] RSSI: -XX dBm LQI: … Frame: T1 A not found in configuration T: …` ;
 - repérez l'ID qui revient toutes les 8 à 32 s avec le meilleur RSSI, mettez-le dans `meter_id: "0xXXXXXXXX"` et réinstallez sans fil ;
-- compteur trouvé : `Index eau` prend une valeur. Pour confirmer que c'est le vôtre, comparez-la avec le cadran du compteur.
+- compteur trouvé : les logs affichent `Using driver 'izar' for ID [0xXXXXXXXX]` et `Index eau` prend une valeur. Pour confirmer que c'est le vôtre, comparez-la avec le cadran du compteur.
 
-Une fois l'ID confirmé, vous pouvez passer `log_all` à `false` dans une copie du fichier.
+Une fois l'ID confirmé, vous pouvez passer `log_unknown` à `false` dans une copie du fichier.
 
 ## Dans Home Assistant
 
@@ -121,7 +121,6 @@ Une fois l'ID confirmé, vous pouvez passer `log_all` à `false` dans une copie 
 | Période d'émission | Diagnostic | Intervalle entre deux trames, en s |
 | Signal radio compteur | Diagnostic | RSSI du compteur, en dBm |
 | Alarmes précédentes | Diagnostic | |
-| Date du relevé mensuel | Diagnostic | |
 | Signal WiFi, Uptime, Statut | Diagnostic | |
 | Redémarrer | Diagnostic | |
 
@@ -150,14 +149,14 @@ Si les logs affichent `(izar) Decoding PRIOS data failed. Ignoring telegram.`, l
 | [`exemples/compteur-eau.yaml`](exemples/compteur-eau.yaml) | Le fichier à créer dans ESPHome (3 substitutions) |
 | [`exemples/secrets.yaml.exemple`](exemples/secrets.yaml.exemple) | Les clés à mettre dans votre `secrets.yaml` |
 | [`docs/`](docs/) | Schéma de câblage (SVG + PNG) |
-| [`components/wmbus/`](components/wmbus/) | Composant `wmbus` v4 corrigé pour ESPHome 2026.11, voir [`CORRECTIF.md`](components/wmbus/CORRECTIF.md) |
 
 ## État
 
-- Composant `wmbus` de la branche `version_4` (commit `5f8090d`), corrigé pour ESPHome 2026.11 (voir [`CORRECTIF.md`](components/wmbus/CORRECTIF.md)).
+- Composant `wmbus` de la branche amont `version_3`, sans modification : bibliothèque SmartRC 3.0.2 (PR #463), correctif de réception T1 (PR #444), compatibilité ESPHome 2026.11 (PR #482).
 - La configuration passe `esphome config` (ESPHome 2026.11.1).
-- La v5 (`wmbus_radio`) a été essayée sur ce matériel : avec le CC1101, les trames Izar arrivaient corrompues à partir du 32e octet, comme chez d'autres utilisateurs. D'où le retour à la v4 et le fil GDO2.
-- Réception v4 en cours de validation sur le matériel.
+- La v5 (`wmbus_radio`) a été essayée : avec le CC1101, les trames Izar arrivaient corrompues à partir du 32e octet, comme chez d'autres utilisateurs.
+- La v4 plantait au démarrage de la réception (watchdog) : sa bibliothèque SmartRC 2.5.7 n'est pas compatible avec le cœur Arduino ESP32 actuel. C'est ce que corrige la `version_3`.
+- Réception en cours de validation sur le matériel.
 
 ## Licence
 
