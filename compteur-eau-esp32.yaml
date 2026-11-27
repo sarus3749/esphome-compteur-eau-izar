@@ -121,19 +121,6 @@ wmbus_common:
 
 # -------------------------------------------------------------- Compteur -----
 wmbus_meter:
-  # Diagnostic : décode et journalise (niveau INFO, en JSON avec l'ID et total_m3)
-  # TOUS les compteurs Izar reçus. Sert à vérifier que le décodage de l'index
-  # marche et à reconnaître le sien en comparant l'index au cadran. A retirer ensuite.
-  - id: tous_les_compteurs
-    meter_id: "*"
-    type: izar
-    mode:
-      - T1
-    on_telegram:
-      - logger.log:
-          format: "COMPTEUR IZAR : %s"
-          args: [ 'meter.as_json().c_str()' ]
-          level: INFO
   - id: compteur_eau
     meter_id: ${meter_id}
     type: izar

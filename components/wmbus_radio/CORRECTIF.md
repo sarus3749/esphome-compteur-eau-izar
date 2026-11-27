@@ -43,3 +43,7 @@ Les trames reçues (`36 57 1C…` = L 0x19, C 0x44 en 3 parmi 6) n'ont que leurs
 ## Débit : retour à 0x5C / 0x04 (27/11/2026)
 
 Le passage à `0x5B/0xF8` (PR #22) reposait sur un calcul (écart de 3 % avec 100 kbit/s) et non sur une source. Les configurations CC1101 T1 publiées qui fonctionnent, dont une pour Izar, utilisent toutes `MDMCFG4/3 = 0x5C/0x04` avec le reste identique à ce pilote : `maciekn/izar-wmbus-esp` (`wmbus_t_cc1101_config.h`, « based on TI SWRA234A »), `Albert221/wmbus-cc1101-esphome`, `ryszardlet/esphome-wmbus-cc1101`. Leurs autres registres (FOCCFG `0x2E`, BSCFG `0xBF`, AGCCTRL `0x43/0x09/0xB5`, DEVIATN `0x44`, FSCTRL1 `0x08`) sont les mêmes que les nôtres. Le débit est donc le seul écart avec les références. Le décodage des trames depuis la PR #23 (aucun accès SPI pendant la trame) est conservé.
+
+## Cause trouvée : lecture de la FIFO octet par octet (28/11/2026)
+
+Les fins de trames reçues contenaient des octets identiques répétés (`34 34 34`, `45 45 45 45`), ce que ne produit pas un vrai codage 3 parmi 6. La lecture de la FIFO en une rafale de 45 octets en était la cause : le pilote lit maintenant la FIFO octet par octet (accès simple, `0xBF`). Résultat mesuré sur le matériel : le compteur 0x21422762 est décodé (index, index du mois précédent, pile, RSSI) ainsi que plusieurs voisins, avec les registres du build de la PR #28 (`MDMCFG4/3 = 0x5B/0xF8`, `AGCCTRL0 = 0xB5`). Avec `0x5C/0x04` (valeur des projets de référence) la radio ne détectait presque plus rien sur ce montage. `FOCCFG = 0x0E` (PR #35) n'a pas été prouvé utile.
