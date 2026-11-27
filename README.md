@@ -1,6 +1,6 @@
 # Compteur d'eau Diehl IZAR → Home Assistant (ESPHome)
 
-Firmware ESPHome qui lit par radio l'index d'un compteur d'eau **Diehl Altair + module IZAR RC** (wM-Bus T1, 868,95 MHz, protocole PRIOS) avec un **ESP32 D1 mini** et un module **CC1101 868 MHz**. Il s'appuie sur le composant [`SzczepanLeon/esphome-components`](https://github.com/SzczepanLeon/esphome-components) (driver `izar` de wmbusmeters). L'index remonte nativement dans Home Assistant en m³, prêt pour le tableau de bord Eau.
+Firmware ESPHome qui lit par radio l'index d'un compteur d'eau **Diehl Altair + module IZAR RC** (wM-Bus T1, 868,95 MHz, protocole PRIOS) avec un **ESP32 D1 mini (Diymore ESP32 Mini, ESP32-WROOM-32)** et un module **CC1101 868 MHz**. Il s'appuie sur le composant [`SzczepanLeon/esphome-components`](https://github.com/SzczepanLeon/esphome-components) (driver `izar` de wmbusmeters). L'index remonte nativement dans Home Assistant en m³, prêt pour le tableau de bord Eau.
 
 ![ESPHome](https://img.shields.io/badge/ESPHome-2026.11-000?logo=esphome)
 ![Carte](https://img.shields.io/badge/carte-ESP32__D1__mini-blue)
@@ -20,33 +20,44 @@ Firmware ESPHome qui lit par radio l'index d'un compteur d'eau **Diehl Altair + 
 
 - **Diymore ESP32 Mini** (ESP32-WROOM-32, USB CH9102F), ou tout « D1 mini ESP32 » / MH-ET LIVE MiniKit.
 - **Module CC1101 868 MHz** avec son antenne. Attention : les modules les plus courants sont en 433 MHz.
-- 8 fils Dupont courts.
-
-Un D1 mini **ESP8266** fonctionne aussi, avec le même câblage, mais avec l'ancienne version du composant (voir [Variante ESP8266](#variante-esp8266)).
+- 7 fils Dupont femelle-femelle courts (les deux cartes ont des broches mâles une fois les connecteurs soudés).
 
 ## Câblage
 
-![Schéma de câblage D1 mini ↔ CC1101](docs/schema-cablage-d1mini-cc1101.svg)
+![Schéma de câblage ESP32 Mini ↔ CC1101](docs/schema-cablage-esp32-cc1101.svg)
 
-(version PNG : [`docs/schema-cablage-d1mini-cc1101.png`](docs/schema-cablage-d1mini-cc1101.png))
+(version PNG : [`docs/schema-cablage-esp32-cc1101.png`](docs/schema-cablage-esp32-cc1101.png))
 
-| CC1101 | D1 mini | GPIO ESP32 (sérigraphie Diymore) | GPIO ESP8266 | Rôle |
+Le schéma est à l'échelle et montre les 40 broches de l'ESP32 Mini et les 11 du CC1101 à leur place réelle. Les sept fils partent tous du même côté de l'ESP32, celui du bouton RST, et utilisent le bus SPI matériel VSPI.
+
+| CC1101 | ESP32 (sérigraphie) | Emplacement sur l'ESP32 Mini | Rôle | ESPHome |
 |---|---|---|---|---|
-| VCC | 3V3 | 3V3 | 3V3 | alimentation **3,3 V uniquement** |
-| GND | G | GND | GND | masse |
-| SCK | D5 | IO18 | GPIO14 | horloge SPI |
-| MISO (SO/GDO1) | D6 | IO19 | GPIO12 | données CC1101 → ESP |
-| MOSI (SI) | D7 | IO23 | GPIO13 | données ESP → CC1101 |
-| CSN | D4 | IO16 | GPIO2 | chip select |
-| GDO0 | D1 | IO22 | GPIO5 | interruption (`irq_pin`) |
-| GDO2 | D2 | IO21 | GPIO4 | inutilisé sur ESP32, requis sur ESP8266 |
+| VCC | 3V3 | rangée intérieure côté RST, 3e depuis l'USB-C | alimentation **3,3 V uniquement** | |
+| GND | GND | rangée extérieure côté RST, 10e | masse | |
+| MOSI | IO23 | rangée intérieure côté RST, 5e | données ESP → CC1101 | `mosi_pin: GPIO23` |
+| SCLK | IO18 | rangée intérieure côté RST, 7e | horloge SPI | `clk_pin: GPIO18` |
+| MISO | IO19 | rangée intérieure côté RST, 6e | données CC1101 → ESP | `miso_pin: GPIO19` |
+| GDO2 | non connecté | | inutile avec le composant v5 | |
+| GDO0 | IO26 | rangée intérieure côté RST, 8e | interruption « trame reçue » | `irq_pin: GPIO26` |
+| CSN | IO5 | rangée intérieure côté RST, 4e | chip select | `cs_pin: GPIO5` |
+| ANT | antenne ressort | | antenne 868 MHz | |
+
+Brochage complet de l'ESP32 Mini, vu de dessus, USB-C à gauche (colonnes 1 à 10 depuis l'USB-C) :
+
+| Rangée | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| côté RST, extérieure | CMD | SD2 | NC | TMS (IO14) | IO34 | IO33 | IO35 | SVN (IO39) | NC | **GND** |
+| côté RST, intérieure | SD3 | TCK (IO13) | **3V3** | **IO5** | **IO23** | **IO19** | **IO18** | **IO26** | SVP (IO36) | RST |
+| côté LED, intérieure | SD0 | TDO (IO15) | VCC 5 V | GND | IO16 | IO17 | IO21 | IO22 | RXD | TXD |
+| côté LED, extérieure | CLK | SD1 | IO2 | IO0 | IO4 | TDI (IO12) | IO32 | IO25 | IO27 | GND |
 
 Conseils :
 
-- **Diymore ESP32 Mini** : la carte a deux rangées de broches de chaque côté et la sérigraphie indique `IOxx`, pas `D1`…`D8`. Repérez les broches avec la colonne « GPIO ESP32 ».
+- La sérigraphie des noms est **au dos** de la carte : repérez les broches par leur position (tableau ci-dessus) en regardant la carte côté composants. Les rangées intérieures, entourées d'un ovale, ont le brochage d'un D1 mini.
 - **Jamais de 5 V sur le CC1101.**
-- L'ordre des broches du CC1101 varie selon les modules : suivez la sérigraphie du vôtre.
-- Fils courts (moins de 10 cm). Antenne verticale, éloignée du métal et de l'ESP. Placez le montage au plus près du compteur (regard, gaine technique) : la portée du module IZAR est de quelques dizaines de mètres.
+- Pas de fil sur IO0, IO2, IO12 et IO15, qui fixent le mode de démarrage. IO5 en est une aussi, mais le CC1101 la laisse au niveau haut : aucun risque en chip select.
+- IO34 à IO39 sont des entrées seules, et SVP/SVN (IO36/IO39) ont un défaut d'interruption connu : ne pas y mettre GDO0.
+- Fils courts (moins de 10 cm). Antenne verticale, éloignée du métal et de l'antenne Wi-Fi. Placez le montage au plus près du compteur (regard, gaine technique) : la portée du module IZAR est de quelques dizaines de mètres.
 
 ## Installation
 
@@ -126,24 +137,19 @@ Si les logs affichent `(izar) Decoding PRIOS data failed. Ignoring telegram.`, l
 3. `wmbus_meter` ne garde que les trames dont l'adresse correspond à `meter_id` et les passe au driver `izar` de wmbusmeters, qui désembrouille le contenu PRIOS.
 4. Chaque champ décodé (`total_m3`, `current_alarms`…) alimente un capteur ESPHome, envoyé à Home Assistant par l'API native.
 
-## Variante ESP8266
-
-La version actuelle du composant (v5, branche `main`) ne fonctionne **que sur ESP32 avec esp-idf**. Sur un D1 mini ESP8266, utilisez [`compteur-eau-esp8266.yaml`](compteur-eau-esp8266.yaml) en copie directe. Il repose sur l'ancienne v4 (branche `version_4`), qui n'évolue plus et dont la syntaxe est différente. Le câblage est le même, mais GDO2 y est obligatoire. Pour trouver l'ID, `log_all: True` affiche directement `izar [0xXXXXXXXX] RSSI: …`.
-
 ## Fichiers
 
 | Fichier | Rôle |
 |---|---|
-| [`compteur-eau-esp32.yaml`](compteur-eau-esp32.yaml) | Configuration complète ESP32, chargée à distance par le fichier de l'appareil |
-| [`compteur-eau-esp8266.yaml`](compteur-eau-esp8266.yaml) | Variante ESP8266 (composant v4), à copier telle quelle |
+| [`compteur-eau-esp32.yaml`](compteur-eau-esp32.yaml) | Configuration complète, chargée à distance par le fichier de l'appareil |
 | [`exemples/compteur-eau.yaml`](exemples/compteur-eau.yaml) | Le fichier à créer dans ESPHome (3 substitutions) |
 | [`exemples/secrets.yaml.exemple`](exemples/secrets.yaml.exemple) | Les clés à mettre dans votre `secrets.yaml` |
 | [`docs/`](docs/) | Schéma de câblage (SVG + PNG) |
 
 ## État
 
-- Syntaxe vérifiée sur `SzczepanLeon/esphome-components` (v5, commit `76dda80` du 22/11/2026, et branche `version_4`).
-- Les configurations passent `esphome config` (ESPHome 2026.11.1).
+- Syntaxe vérifiée sur `SzczepanLeon/esphome-components` (v5, commit `76dda80` du 22/11/2026).
+- La configuration passe `esphome config` (ESPHome 2026.11.1).
 - Compilation et réception pas encore testées sur le matériel.
 
 ## Licence

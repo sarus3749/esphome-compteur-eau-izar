@@ -1,0 +1,293 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1880" viewBox="0 0 1200 1880" font-family="Helvetica, Arial, sans-serif">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="600.0" y="42.0" font-size="25" text-anchor="middle" fill="#1a1a1a" font-weight="bold">Câblage Diymore ESP32 Mini ↔ CC1101 868 MHz</text>
+<text x="600.0" y="70.0" font-size="14" text-anchor="middle" fill="#555" font-weight="normal">Vue de dessus, côté composants, à l'échelle (pas 2,54 mm). Toutes les broches des deux cartes sont représentées.</text>
+<rect x="150" y="900" width="589.0" height="467.4" rx="14" fill="#1d5aa8" stroke="#0f3466" stroke-width="3"/>
+<rect x="132" y="1059.6" width="125.4" height="136.8" rx="10" fill="#c9c9c9" stroke="#777" stroke-width="2"/>
+<text x="195.6" y="1133.7" font-size="12" text-anchor="middle" fill="#333" font-weight="bold">USB-C</text>
+<rect x="169.0" y="934.2" width="64.6" height="38.0" rx="4" fill="#eee" stroke="#555"/>
+<text x="201.3" y="993.1" font-size="10" text-anchor="middle" fill="#dfe9f7" font-weight="normal">bouton RST</text>
+<rect x="252.6" y="1002.6" width="53.2" height="53.2" fill="#222"/>
+<text x="279.2" y="1071.0" font-size="10" text-anchor="middle" fill="#dfe9f7" font-weight="normal">CH9102F</text>
+<rect x="347.6" y="993.5" width="387.6" height="273.6" fill="#111" rx="3"/>
+<rect x="353.6" y="999.5" width="276.8" height="261.6" rx="4" fill="#d9d9d9" stroke="#999"/>
+<text x="492.0" y="1122.3" font-size="17" text-anchor="middle" fill="#555" font-weight="bold">ESP32-WROOM-32</text>
+<text x="492.0" y="1144.3" font-size="11" text-anchor="middle" fill="#777" font-weight="normal">(blindage métallique)</text>
+<polyline points="648.4000000000001,1013.48 648.4000000000001,1247.08 666.4000000000001,1247.08 666.4000000000001,1033.48 684.4000000000001,1033.48 684.4000000000001,1227.08 702.4000000000001,1227.08" fill="none" stroke="#c9a227" stroke-width="3"/>
+<text x="685.8" y="1283.1" font-size="10" text-anchor="middle" fill="#dfe9f7" font-weight="normal">antenne Wi-Fi</text>
+<rect x="172.8" y="1291.4" width="22.8" height="34.2" fill="#fafafa" stroke="#555"/>
+<rect x="207.0" y="1291.4" width="22.8" height="34.2" fill="#fafafa" stroke="#555"/>
+<rect x="330.5" y="939.9" width="307.8" height="38.0" rx="19.0" fill="none" stroke="#ffffff" stroke-width="2"/>
+<rect x="330.5" y="1289.5" width="307.8" height="38.0" rx="19.0" fill="none" stroke="#ffffff" stroke-width="2"/>
+<circle cx="275.4" cy="920.1" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="275.4" cy="920.1" r="4" fill="#1d5aa8"/>
+<circle cx="313.4" cy="920.1" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="313.4" cy="920.1" r="4" fill="#1d5aa8"/>
+<circle cx="351.4" cy="920.1" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="351.4" cy="920.1" r="4" fill="#1d5aa8"/>
+<circle cx="389.4" cy="920.1" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="389.4" cy="920.1" r="4" fill="#1d5aa8"/>
+<circle cx="427.4" cy="920.1" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="427.4" cy="920.1" r="4" fill="#1d5aa8"/>
+<circle cx="465.4" cy="920.1" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="465.4" cy="920.1" r="4" fill="#1d5aa8"/>
+<circle cx="503.4" cy="920.1" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="503.4" cy="920.1" r="4" fill="#1d5aa8"/>
+<circle cx="541.4" cy="920.1" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="541.4" cy="920.1" r="4" fill="#1d5aa8"/>
+<circle cx="579.4" cy="920.1" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="579.4" cy="920.1" r="4" fill="#1d5aa8"/>
+<circle cx="617.4" cy="920.1" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="617.4" cy="920.1" r="4" fill="#1d5aa8"/>
+<rect x="265.4" y="948.9" width="20" height="20" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="275.4" cy="958.9" r="4" fill="#1d5aa8"/>
+<circle cx="313.4" cy="958.9" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="313.4" cy="958.9" r="4" fill="#1d5aa8"/>
+<circle cx="351.4" cy="958.9" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="351.4" cy="958.9" r="4" fill="#1d5aa8"/>
+<circle cx="389.4" cy="958.9" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="389.4" cy="958.9" r="4" fill="#1d5aa8"/>
+<circle cx="427.4" cy="958.9" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="427.4" cy="958.9" r="4" fill="#1d5aa8"/>
+<circle cx="465.4" cy="958.9" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="465.4" cy="958.9" r="4" fill="#1d5aa8"/>
+<circle cx="503.4" cy="958.9" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="503.4" cy="958.9" r="4" fill="#1d5aa8"/>
+<circle cx="541.4" cy="958.9" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="541.4" cy="958.9" r="4" fill="#1d5aa8"/>
+<circle cx="579.4" cy="958.9" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="579.4" cy="958.9" r="4" fill="#1d5aa8"/>
+<circle cx="617.4" cy="958.9" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="617.4" cy="958.9" r="4" fill="#1d5aa8"/>
+<rect x="265.4" y="1298.5" width="20" height="20" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="275.4" cy="1308.5" r="4" fill="#1d5aa8"/>
+<circle cx="313.4" cy="1308.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="313.4" cy="1308.5" r="4" fill="#1d5aa8"/>
+<circle cx="351.4" cy="1308.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="351.4" cy="1308.5" r="4" fill="#1d5aa8"/>
+<circle cx="389.4" cy="1308.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="389.4" cy="1308.5" r="4" fill="#1d5aa8"/>
+<circle cx="427.4" cy="1308.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="427.4" cy="1308.5" r="4" fill="#1d5aa8"/>
+<circle cx="465.4" cy="1308.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="465.4" cy="1308.5" r="4" fill="#1d5aa8"/>
+<circle cx="503.4" cy="1308.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="503.4" cy="1308.5" r="4" fill="#1d5aa8"/>
+<circle cx="541.4" cy="1308.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="541.4" cy="1308.5" r="4" fill="#1d5aa8"/>
+<circle cx="579.4" cy="1308.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="579.4" cy="1308.5" r="4" fill="#1d5aa8"/>
+<circle cx="617.4" cy="1308.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="617.4" cy="1308.5" r="4" fill="#1d5aa8"/>
+<circle cx="275.4" cy="1346.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="275.4" cy="1346.5" r="4" fill="#1d5aa8"/>
+<circle cx="313.4" cy="1346.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="313.4" cy="1346.5" r="4" fill="#1d5aa8"/>
+<circle cx="351.4" cy="1346.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="351.4" cy="1346.5" r="4" fill="#1d5aa8"/>
+<circle cx="389.4" cy="1346.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="389.4" cy="1346.5" r="4" fill="#1d5aa8"/>
+<circle cx="427.4" cy="1346.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="427.4" cy="1346.5" r="4" fill="#1d5aa8"/>
+<circle cx="465.4" cy="1346.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="465.4" cy="1346.5" r="4" fill="#1d5aa8"/>
+<circle cx="503.4" cy="1346.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="503.4" cy="1346.5" r="4" fill="#1d5aa8"/>
+<circle cx="541.4" cy="1346.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="541.4" cy="1346.5" r="4" fill="#1d5aa8"/>
+<circle cx="579.4" cy="1346.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="579.4" cy="1346.5" r="4" fill="#1d5aa8"/>
+<circle cx="617.4" cy="1346.5" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="617.4" cy="1346.5" r="4" fill="#1d5aa8"/>
+<text x="279.4" y="892.0" font-size="11" text-anchor="start" fill="#0f3466" font-weight="bold" transform="rotate(-90 279.4 892.0)">CMD</text>
+<rect x="266.4" y="971.9" width="17" height="27" rx="4" fill="#0f3466"/>
+<text x="279.4" y="974.9" font-size="11" text-anchor="end" fill="#ffffff" font-weight="bold" transform="rotate(-90 279.4 974.9)">SD3</text>
+<rect x="266.4" y="1268.5" width="17" height="27" rx="4" fill="#0f3466"/>
+<text x="279.4" y="1292.5" font-size="11" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 279.4 1292.5)">SD0</text>
+<text x="279.4" y="1375.4" font-size="11" text-anchor="end" fill="#0f3466" font-weight="bold" transform="rotate(-90 279.4 1375.4)">CLK</text>
+<text x="317.4" y="892.0" font-size="11" text-anchor="start" fill="#0f3466" font-weight="bold" transform="rotate(-90 317.4 892.0)">SD2</text>
+<rect x="304.4" y="971.9" width="17" height="62" rx="4" fill="#0f3466"/>
+<text x="317.4" y="974.9" font-size="11" text-anchor="end" fill="#ffffff" font-weight="bold" transform="rotate(-90 317.4 974.9)">TCK·IO13</text>
+<rect x="304.4" y="1233.5" width="17" height="62" rx="4" fill="#0f3466"/>
+<text x="317.4" y="1292.5" font-size="11" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 317.4 1292.5)">TDO·IO15</text>
+<text x="317.4" y="1375.4" font-size="11" text-anchor="end" fill="#0f3466" font-weight="bold" transform="rotate(-90 317.4 1375.4)">SD1</text>
+<text x="355.4" y="892.0" font-size="11" text-anchor="start" fill="#0f3466" font-weight="bold" transform="rotate(-90 355.4 892.0)">NC</text>
+<rect x="342.4" y="971.9" width="17" height="27" rx="4" fill="#0f3466"/>
+<text x="355.4" y="974.9" font-size="11" text-anchor="end" fill="#ffffff" font-weight="bold" transform="rotate(-90 355.4 974.9)">3V3</text>
+<rect x="342.4" y="1247.5" width="17" height="48" rx="4" fill="#0f3466"/>
+<text x="355.4" y="1292.5" font-size="11" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 355.4 1292.5)">VCC 5V</text>
+<text x="355.4" y="1375.4" font-size="11" text-anchor="end" fill="#0f3466" font-weight="bold" transform="rotate(-90 355.4 1375.4)">IO2</text>
+<text x="393.4" y="892.0" font-size="11" text-anchor="start" fill="#0f3466" font-weight="bold" transform="rotate(-90 393.4 892.0)">TMS·IO14</text>
+<rect x="380.4" y="971.9" width="17" height="27" rx="4" fill="#0f3466"/>
+<text x="393.4" y="974.9" font-size="11" text-anchor="end" fill="#ffffff" font-weight="bold" transform="rotate(-90 393.4 974.9)">IO5</text>
+<rect x="380.4" y="1268.5" width="17" height="27" rx="4" fill="#0f3466"/>
+<text x="393.4" y="1292.5" font-size="11" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 393.4 1292.5)">GND</text>
+<text x="393.4" y="1375.4" font-size="11" text-anchor="end" fill="#0f3466" font-weight="bold" transform="rotate(-90 393.4 1375.4)">IO0</text>
+<text x="431.4" y="892.0" font-size="11" text-anchor="start" fill="#0f3466" font-weight="bold" transform="rotate(-90 431.4 892.0)">IO34</text>
+<rect x="418.4" y="971.9" width="17" height="34" rx="4" fill="#0f3466"/>
+<text x="431.4" y="974.9" font-size="11" text-anchor="end" fill="#ffffff" font-weight="bold" transform="rotate(-90 431.4 974.9)">IO23</text>
+<rect x="418.4" y="1261.5" width="17" height="34" rx="4" fill="#0f3466"/>
+<text x="431.4" y="1292.5" font-size="11" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 431.4 1292.5)">IO16</text>
+<text x="431.4" y="1375.4" font-size="11" text-anchor="end" fill="#0f3466" font-weight="bold" transform="rotate(-90 431.4 1375.4)">IO4</text>
+<text x="469.4" y="892.0" font-size="11" text-anchor="start" fill="#0f3466" font-weight="bold" transform="rotate(-90 469.4 892.0)">IO33</text>
+<rect x="456.4" y="971.9" width="17" height="34" rx="4" fill="#0f3466"/>
+<text x="469.4" y="974.9" font-size="11" text-anchor="end" fill="#ffffff" font-weight="bold" transform="rotate(-90 469.4 974.9)">IO19</text>
+<rect x="456.4" y="1261.5" width="17" height="34" rx="4" fill="#0f3466"/>
+<text x="469.4" y="1292.5" font-size="11" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 469.4 1292.5)">IO17</text>
+<text x="469.4" y="1375.4" font-size="11" text-anchor="end" fill="#0f3466" font-weight="bold" transform="rotate(-90 469.4 1375.4)">TDI·IO12</text>
+<text x="507.4" y="892.0" font-size="11" text-anchor="start" fill="#0f3466" font-weight="bold" transform="rotate(-90 507.4 892.0)">IO35</text>
+<rect x="494.4" y="971.9" width="17" height="34" rx="4" fill="#0f3466"/>
+<text x="507.4" y="974.9" font-size="11" text-anchor="end" fill="#ffffff" font-weight="bold" transform="rotate(-90 507.4 974.9)">IO18</text>
+<rect x="494.4" y="1261.5" width="17" height="34" rx="4" fill="#0f3466"/>
+<text x="507.4" y="1292.5" font-size="11" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 507.4 1292.5)">IO21</text>
+<text x="507.4" y="1375.4" font-size="11" text-anchor="end" fill="#0f3466" font-weight="bold" transform="rotate(-90 507.4 1375.4)">IO32</text>
+<text x="545.4" y="892.0" font-size="11" text-anchor="start" fill="#0f3466" font-weight="bold" transform="rotate(-90 545.4 892.0)">SVN·IO39</text>
+<rect x="532.4" y="971.9" width="17" height="34" rx="4" fill="#0f3466"/>
+<text x="545.4" y="974.9" font-size="11" text-anchor="end" fill="#ffffff" font-weight="bold" transform="rotate(-90 545.4 974.9)">IO26</text>
+<rect x="532.4" y="1261.5" width="17" height="34" rx="4" fill="#0f3466"/>
+<text x="545.4" y="1292.5" font-size="11" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 545.4 1292.5)">IO22</text>
+<text x="545.4" y="1375.4" font-size="11" text-anchor="end" fill="#0f3466" font-weight="bold" transform="rotate(-90 545.4 1375.4)">IO25</text>
+<text x="583.4" y="892.0" font-size="11" text-anchor="start" fill="#0f3466" font-weight="bold" transform="rotate(-90 583.4 892.0)">NC</text>
+<rect x="570.4" y="971.9" width="17" height="62" rx="4" fill="#0f3466"/>
+<text x="583.4" y="974.9" font-size="11" text-anchor="end" fill="#ffffff" font-weight="bold" transform="rotate(-90 583.4 974.9)">SVP·IO36</text>
+<rect x="570.4" y="1268.5" width="17" height="27" rx="4" fill="#0f3466"/>
+<text x="583.4" y="1292.5" font-size="11" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 583.4 1292.5)">RXD</text>
+<text x="583.4" y="1375.4" font-size="11" text-anchor="end" fill="#0f3466" font-weight="bold" transform="rotate(-90 583.4 1375.4)">IO27</text>
+<text x="621.4" y="892.0" font-size="11" text-anchor="start" fill="#0f3466" font-weight="bold" transform="rotate(-90 621.4 892.0)">GND</text>
+<rect x="608.4" y="971.9" width="17" height="27" rx="4" fill="#0f3466"/>
+<text x="621.4" y="974.9" font-size="11" text-anchor="end" fill="#ffffff" font-weight="bold" transform="rotate(-90 621.4 974.9)">RST</text>
+<rect x="608.4" y="1268.5" width="17" height="27" rx="4" fill="#0f3466"/>
+<text x="621.4" y="1292.5" font-size="11" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 621.4 1292.5)">TXD</text>
+<text x="621.4" y="1375.4" font-size="11" text-anchor="end" fill="#0f3466" font-weight="bold" transform="rotate(-90 621.4 1375.4)">GND</text>
+<text x="751.0" y="924.1" font-size="11" text-anchor="start" fill="#555" font-weight="normal">rangée ext.</text>
+<text x="751.0" y="962.9" font-size="11" text-anchor="start" fill="#555" font-weight="normal">rangée int. (D1 mini)</text>
+<text x="751.0" y="1312.5" font-size="11" text-anchor="start" fill="#555" font-weight="normal">rangée int. (D1 mini)</text>
+<text x="751.0" y="1350.5" font-size="11" text-anchor="start" fill="#555" font-weight="normal">rangée ext.</text>
+<rect x="332.8" y="230" width="319.2" height="418.0" rx="6" fill="#2e8b3a" stroke="#1b5e20" stroke-width="3"/>
+<rect x="431.6" y="366.8" width="91.2" height="91.2" fill="#1b1b1b" rx="3"/>
+<text x="477.2" y="416.2" font-size="13" text-anchor="middle" fill="#ddd" font-weight="bold">CC1101</text>
+<rect x="534.2" y="480.8" width="60.8" height="91.2" rx="4" fill="#cfcfcf" stroke="#888"/>
+<text x="477.2" y="568.2" font-size="12" text-anchor="middle" fill="#e5f5e6" font-weight="normal">module 868 MHz</text>
+<circle cx="351.4" cy="632.0" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="351.4" cy="632.0" r="4" fill="#1d5aa8"/>
+<text x="355.4" y="616.0" font-size="12" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 355.4 616.0)">VCC</text>
+<circle cx="389.4" cy="632.0" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="389.4" cy="632.0" r="4" fill="#1d5aa8"/>
+<text x="393.4" y="616.0" font-size="12" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 393.4 616.0)">GND</text>
+<circle cx="427.4" cy="632.0" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="427.4" cy="632.0" r="4" fill="#1d5aa8"/>
+<text x="431.4" y="616.0" font-size="12" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 431.4 616.0)">MOSI</text>
+<circle cx="465.4" cy="632.0" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="465.4" cy="632.0" r="4" fill="#1d5aa8"/>
+<text x="469.4" y="616.0" font-size="12" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 469.4 616.0)">SCLK</text>
+<circle cx="503.4" cy="632.0" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="503.4" cy="632.0" r="4" fill="#1d5aa8"/>
+<text x="507.4" y="616.0" font-size="12" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 507.4 616.0)">MISO</text>
+<circle cx="541.4" cy="632.0" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="541.4" cy="632.0" r="4" fill="#1d5aa8"/>
+<text x="545.4" y="616.0" font-size="12" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 545.4 616.0)">GDO2</text>
+<circle cx="579.4" cy="632.0" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="579.4" cy="632.0" r="4" fill="#1d5aa8"/>
+<text x="583.4" y="616.0" font-size="12" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 583.4 616.0)">GDO0</text>
+<circle cx="617.4" cy="632.0" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="617.4" cy="632.0" r="4" fill="#1d5aa8"/>
+<text x="621.4" y="616.0" font-size="12" text-anchor="start" fill="#ffffff" font-weight="bold" transform="rotate(-90 621.4 616.0)">CSN</text>
+<circle cx="465.8" cy="248.6" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="465.8" cy="248.6" r="4" fill="#1d5aa8"/>
+<text x="469.8" y="264.6" font-size="11" text-anchor="end" fill="#ffffff" font-weight="bold" transform="rotate(-90 469.8 264.6)">GND</text>
+<circle cx="505.3" cy="248.6" r="10" fill="#f2c94c" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="505.3" cy="248.6" r="4" fill="#1d5aa8"/>
+<text x="509.3" y="264.6" font-size="11" text-anchor="end" fill="#ffffff" font-weight="bold" transform="rotate(-90 509.3 264.6)">ANT</text>
+<circle cx="544.1" cy="248.6" r="10" fill="#e8e8e8" stroke="#8a6d00" stroke-width="2"/>
+<circle cx="544.1" cy="248.6" r="4" fill="#1d5aa8"/>
+<text x="548.1" y="264.6" font-size="11" text-anchor="end" fill="#ffffff" font-weight="bold" transform="rotate(-90 548.1 264.6)">GND</text>
+<polyline points="505.3,238.6 509.4,237.4 512.6,236.1 514.2,234.9 513.9,233.6 511.7,232.4 508.1,231.1 503.9,229.9 500.0,228.6 497.3,227.4 496.3,226.1 497.3,224.9 500.0,223.6 503.9,222.4 508.1,221.1 511.7,219.9 513.9,218.6 514.2,217.4 512.6,216.1 509.4,214.9 505.3,213.6 501.2,212.4 498.0,211.1 496.4,209.9 496.7,208.6 498.9,207.4 502.5,206.1 506.7,204.9 510.6,203.6 513.3,202.4 514.3,201.1 513.3,199.9 510.6,198.6 506.7,197.4 502.5,196.1 498.9,194.9 496.7,193.6 496.4,192.4 498.0,191.1 501.2,189.9 505.3,188.6 509.4,187.4 512.6,186.1 514.2,184.9 513.9,183.6 511.7,182.4 508.1,181.1 503.9,179.9 500.0,178.6 497.3,177.4 496.3,176.1 497.3,174.9 500.0,173.6 503.9,172.4 508.1,171.1 511.7,169.9 513.9,168.6 514.2,167.4 512.6,166.1 509.4,164.9 505.3,163.6 501.2,162.4 498.0,161.1 496.4,159.9 496.7,158.6 498.9,157.4 502.5,156.1 506.7,154.9 510.6,153.6 513.3,152.4 514.3,151.1 513.3,149.9 510.6,148.6 506.7,147.4 502.5,146.1 498.9,144.9 496.7,143.6 496.4,142.4 498.0,141.1 501.2,139.9 505.3,138.6 509.4,137.4 512.6,136.1 514.2,134.9 513.9,133.6 511.7,132.4 508.1,131.1 503.9,129.9 500.0,128.6 497.3,127.4 496.3,126.1 497.3,124.9 500.0,123.6 503.9,122.4 508.1,121.1 511.7,119.9 513.9,118.6 514.2,117.4 512.6,116.1 509.4,114.9 505.3,113.6 501.2,112.4 498.0,111.1 496.4,109.9 496.7,108.6 498.9,107.4 502.5,106.1 506.7,104.9 510.6,103.6 513.3,102.4 514.3,101.1 513.3,99.9 510.6,98.6 506.7,97.4 502.5,96.1 498.9,94.9 496.7,93.6 496.4,92.4 498.0,91.1 501.2,89.9 505.3,88.6" fill="none" stroke="#b08d2b" stroke-width="2.5"/>
+<text x="527.3" y="128.6" font-size="12" text-anchor="start" fill="#555" font-weight="normal">antenne ressort 868 MHz (sur ANT)</text>
+<text x="527.3" y="144.6" font-size="12" text-anchor="start" fill="#555" font-weight="normal">verticale, loin du métal</text>
+<text x="318.8" y="602.0" font-size="12" text-anchor="end" fill="#888" font-weight="normal">GDO2 : non connecté</text>
+<polyline points="617.4,632.0 617.4,672.0 370.4,672.0 370.4,958.9 389.4,958.9" fill="none" stroke="#7b1fa2" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="608.4" y="619.0" width="18" height="26" rx="2" fill="#1a1a1a" stroke="#7b1fa2" stroke-width="2.5" opacity="0.92"/>
+<rect x="380.4" y="945.9" width="18" height="26" rx="2" fill="#1a1a1a" stroke="#7b1fa2" stroke-width="2.5" opacity="0.92"/>
+<polyline points="579.4,632.0 579.4,697.0 522.4,697.0 522.4,958.9 541.4,958.9" fill="none" stroke="#00838f" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="570.4" y="619.0" width="18" height="26" rx="2" fill="#1a1a1a" stroke="#00838f" stroke-width="2.5" opacity="0.92"/>
+<rect x="532.4" y="945.9" width="18" height="26" rx="2" fill="#1a1a1a" stroke="#00838f" stroke-width="2.5" opacity="0.92"/>
+<polyline points="503.4,632.0 503.4,722.0 446.4,722.0 446.4,958.9 465.4,958.9" fill="none" stroke="#2e9d3a" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="494.4" y="619.0" width="18" height="26" rx="2" fill="#1a1a1a" stroke="#2e9d3a" stroke-width="2.5" opacity="0.92"/>
+<rect x="456.4" y="945.9" width="18" height="26" rx="2" fill="#1a1a1a" stroke="#2e9d3a" stroke-width="2.5" opacity="0.92"/>
+<polyline points="465.4,632.0 465.4,747.0 484.4,747.0 484.4,958.9 503.4,958.9" fill="none" stroke="#ef6c00" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="456.4" y="619.0" width="18" height="26" rx="2" fill="#1a1a1a" stroke="#ef6c00" stroke-width="2.5" opacity="0.92"/>
+<rect x="494.4" y="945.9" width="18" height="26" rx="2" fill="#1a1a1a" stroke="#ef6c00" stroke-width="2.5" opacity="0.92"/>
+<polyline points="389.4,632.0 389.4,772.0 636.4,772.0 636.4,920.1 617.4,920.1" fill="none" stroke="#222222" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="380.4" y="619.0" width="18" height="26" rx="2" fill="#1a1a1a" stroke="#222222" stroke-width="2.5" opacity="0.92"/>
+<rect x="608.4" y="907.1" width="18" height="26" rx="2" fill="#1a1a1a" stroke="#222222" stroke-width="2.5" opacity="0.92"/>
+<polyline points="351.4,632.0 351.4,797.0 332.4,797.0 332.4,958.9 351.4,958.9" fill="none" stroke="#d32f2f" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="342.4" y="619.0" width="18" height="26" rx="2" fill="#1a1a1a" stroke="#d32f2f" stroke-width="2.5" opacity="0.92"/>
+<rect x="342.4" y="945.9" width="18" height="26" rx="2" fill="#1a1a1a" stroke="#d32f2f" stroke-width="2.5" opacity="0.92"/>
+<polyline points="427.4,632.0 427.4,797.0 408.4,797.0 408.4,958.9 427.4,958.9" fill="none" stroke="#1565c0" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/>
+<rect x="418.4" y="619.0" width="18" height="26" rx="2" fill="#1a1a1a" stroke="#1565c0" stroke-width="2.5" opacity="0.92"/>
+<rect x="418.4" y="945.9" width="18" height="26" rx="2" fill="#1a1a1a" stroke="#1565c0" stroke-width="2.5" opacity="0.92"/>
+<text x="60.0" y="1497.4" font-size="18" text-anchor="start" fill="#1a1a1a" font-weight="bold">Raccordements</text>
+<text x="60.0" y="1527.4" font-size="14" text-anchor="start" fill="#333" font-weight="bold">CC1101</text>
+<text x="170.0" y="1527.4" font-size="14" text-anchor="start" fill="#333" font-weight="bold">ESP32 (sérigraphie)</text>
+<text x="330.0" y="1527.4" font-size="14" text-anchor="start" fill="#333" font-weight="bold">Emplacement</text>
+<text x="560.0" y="1527.4" font-size="14" text-anchor="start" fill="#333" font-weight="bold">Rôle</text>
+<text x="820.0" y="1527.4" font-size="14" text-anchor="start" fill="#333" font-weight="bold">ESPHome</text>
+<line x1="40" y1="1535.4" x2="1160" y2="1535.4" stroke="#ccc"/>
+<rect x="40" y="1543.4" width="12" height="12" fill="#d32f2f"/>
+<text x="60.0" y="1554.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">VCC</text>
+<text x="170.0" y="1554.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">3V3</text>
+<text x="330.0" y="1554.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">rangée int. haut, 3e</text>
+<text x="560.0" y="1554.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">alim. 3,3 V uniquement</text>
+<text x="820.0" y="1554.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">—</text>
+<rect x="40" y="1570.4" width="12" height="12" fill="#222222"/>
+<text x="60.0" y="1581.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">GND</text>
+<text x="170.0" y="1581.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">GND</text>
+<text x="330.0" y="1581.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">rangée ext. haut, 10e</text>
+<text x="560.0" y="1581.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">masse</text>
+<text x="820.0" y="1581.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">—</text>
+<rect x="40" y="1597.4" width="12" height="12" fill="#1565c0"/>
+<text x="60.0" y="1608.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">MOSI</text>
+<text x="170.0" y="1608.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">IO23</text>
+<text x="330.0" y="1608.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">rangée int. haut, 5e</text>
+<text x="560.0" y="1608.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">données ESP → CC1101</text>
+<text x="820.0" y="1608.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">mosi_pin: GPIO23</text>
+<rect x="40" y="1624.4" width="12" height="12" fill="#ef6c00"/>
+<text x="60.0" y="1635.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">SCLK</text>
+<text x="170.0" y="1635.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">IO18</text>
+<text x="330.0" y="1635.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">rangée int. haut, 7e</text>
+<text x="560.0" y="1635.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">horloge SPI</text>
+<text x="820.0" y="1635.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">clk_pin: GPIO18</text>
+<rect x="40" y="1651.4" width="12" height="12" fill="#2e9d3a"/>
+<text x="60.0" y="1662.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">MISO</text>
+<text x="170.0" y="1662.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">IO19</text>
+<text x="330.0" y="1662.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">rangée int. haut, 6e</text>
+<text x="560.0" y="1662.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">données CC1101 → ESP</text>
+<text x="820.0" y="1662.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">miso_pin: GPIO19</text>
+<rect x="40" y="1678.4" width="12" height="12" fill="#bbbbbb"/>
+<text x="60.0" y="1689.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">GDO2</text>
+<text x="170.0" y="1689.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">—</text>
+<text x="330.0" y="1689.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">non connecté</text>
+<text x="560.0" y="1689.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">inutile avec le composant v5</text>
+<text x="820.0" y="1689.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">—</text>
+<rect x="40" y="1705.4" width="12" height="12" fill="#00838f"/>
+<text x="60.0" y="1716.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">GDO0</text>
+<text x="170.0" y="1716.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">IO26</text>
+<text x="330.0" y="1716.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">rangée int. haut, 8e</text>
+<text x="560.0" y="1716.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">interruption trame reçue</text>
+<text x="820.0" y="1716.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">irq_pin: GPIO26</text>
+<rect x="40" y="1732.4" width="12" height="12" fill="#7b1fa2"/>
+<text x="60.0" y="1743.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">CSN</text>
+<text x="170.0" y="1743.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">IO5</text>
+<text x="330.0" y="1743.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">rangée int. haut, 4e</text>
+<text x="560.0" y="1743.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">chip select</text>
+<text x="820.0" y="1743.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">cs_pin: GPIO5</text>
+<rect x="40" y="1759.4" width="12" height="12" fill="#b08d2b"/>
+<text x="60.0" y="1770.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">ANT</text>
+<text x="170.0" y="1770.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">—</text>
+<text x="330.0" y="1770.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">antenne ressort</text>
+<text x="560.0" y="1770.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">antenne 868 MHz</text>
+<text x="820.0" y="1770.4" font-size="14" text-anchor="start" fill="#222" font-weight="normal">—</text>
+<text x="60.0" y="1804.4" font-size="13" text-anchor="start" fill="#444" font-weight="normal">Colonnes comptées depuis le côté USB-C. Les 7 fils partent tous du même côté de l'ESP32 (bus SPI matériel VSPI : IO18, IO19, IO23, IO5).</text>
+<text x="60.0" y="1824.4" font-size="13" text-anchor="start" fill="#444" font-weight="normal">Rangées intérieures entourées = brochage compatible D1 mini. La sérigraphie des noms est au dos de la carte.</text>
+<text x="60.0" y="1850.4" font-size="13" text-anchor="start" fill="#b71c1c" font-weight="bold">⚠ Jamais de 5 V sur le CC1101 (VCC → 3V3). Fils courts (&lt; 10 cm). Pas de fil sur IO0, IO2, IO12, IO15 (broches de démarrage).</text>
+</svg>
