@@ -81,7 +81,7 @@ Dans ESPHome Device Builder, créer un appareil et remplacer son contenu par (vo
 substitutions:
   name: compteur-eau            # nom réseau (minuscules, tirets)
   friendly_name: Compteur eau   # nom de l'appareil dans Home Assistant
-  meter_id: "0x214227A3"        # ID radio du compteur, à confirmer dans les logs
+  meter_id: "0x21422762"        # ID radio du compteur, à confirmer dans les logs
 
 packages:
   compteur:
