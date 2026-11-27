@@ -86,12 +86,13 @@ void CC1101::setup() {
   // Modem configuration for 100 kbps, 2-FSK, 50 kHz deviation
   // MDMCFG4: Channel bandwidth and data rate exponent
   // BW = f_xtal / (8 * (4 + CHANBW_M) * 2^CHANBW_E) = 26M / (8 * 4 * 4) = ~203 kHz
-  // Correctif : 232 kHz de bande, 100,0 kbit/s exacts (0x5C/0x04 donnait
-  // 325 kHz et 103,2 kbit/s), valeurs de la PR IoTLabs-pl #107.
-  this->write_register(CC1101_MDMCFG4, 0x7B);
+  // Valeurs d'origine (325 kHz de bande, 103,2 kbit/s) : seules avec lesquelles de vraies
+  // trames Izar (en-tête et CRC du 1er bloc valides) ont été reçues sur ce matériel. Avec
+  // 0x7B/0xF8/0x50 (PR IoTLabs-pl #107), plus aucune vraie trame n'était détectée.
+  this->write_register(CC1101_MDMCFG4, 0x5C);
   // MDMCFG3: Data rate mantissa
   // DRATE = ((256 + DRATE_M) * 2^DRATE_E) * f_xtal / 2^28 = 100 kbps
-  this->write_register(CC1101_MDMCFG3, 0xF8);
+  this->write_register(CC1101_MDMCFG3, 0x04);
   // MDMCFG2: Modulation format (2-FSK), sync mode (16/16 sync word bits)
   this->write_register(CC1101_MDMCFG2, 0x06);
   // MDMCFG1: FEC disabled, preamble 4 bytes
@@ -102,8 +103,8 @@ void CC1101::setup() {
   ESP_LOGVV(TAG, "configuring deviation");
   // Deviation: ~50 kHz
   // DEVIATION = (f_xtal / 2^17) * (8 + DEVIATION_M) * 2^DEVIATION_E
-  // Correctif : déviation 50,8 kHz (0x44 donnait 38 kHz ; T1 = ±50 kHz)
-  this->write_register(CC1101_DEVIATN, 0x50);
+  // Valeur d'origine (38 kHz), voir ci-dessus
+  this->write_register(CC1101_DEVIATN, 0x44);
 
   ESP_LOGVV(TAG, "configuring state machine");
   // MCSM2: RX time qualifier enabled
