@@ -121,7 +121,11 @@ void CC1101::configure_radio_() {
 
   ESP_LOGVV(TAG, "configuring AFC/AGC");
   // FOCCFG: Frequency offset compensation
-  this->write_register(CC1101_FOCCFG, 0x2E);
+  this->// FOCCFG 0x0E (au lieu de 0x2E) : FOC_BS_CS_GATE = 0 (datasheet SWRS061I p.36 et p.83). Avec le
+  // gate, les boucles de compensation de frequence et de synchro bit sont figees tant que la
+  // porteuse n'est pas detectee (seuil tres bas : AGCCTRL1 = -7 dB). Les trames recues sont
+  // justes ~25 octets puis degenerent (octets repetes).
+  this->write_register(CC1101_FOCCFG, 0x0E);
   // BSCFG: Bit synchronization
   this->write_register(CC1101_BSCFG, 0xBF);
   // AGC control
