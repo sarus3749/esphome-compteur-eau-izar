@@ -102,6 +102,9 @@ ota:
 wifi:
   ssid: !secret wifi-iot_ssid
   password: !secret wifi-iot_password
+  # Le mode d'économie d'énergie WiFi peut rendre la carte injoignable pour les
+  # connexions entrantes (mise à jour sans fil : « No route to host »).
+  power_save_mode: none
 
 web_server:
   version: 3
