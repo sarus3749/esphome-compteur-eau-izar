@@ -92,12 +92,12 @@ void CC1101::configure_radio_() {
   // Modem configuration for 100 kbps, 2-FSK, 50 kHz deviation
   // MDMCFG4: Channel bandwidth and data rate exponent
   // BW = f_xtal / (8 * (4 + CHANBW_M) * 2^CHANBW_E) = 26M / (8 * 4 * 4) = ~203 kHz
-  // 0x5C / 0x04 : valeurs identiques a maciekn/izar-wmbus-esp, zibous, Albert221 et ryszardlet
-  // (configurations Izar T1 sur CC1101 qui fonctionnent, base TI SWRA234A). Par le calcul de la
-  // datasheet (p.76) cela donne 103,15 kBaud et 325 kHz de bande.
-  this->write_register(CC1101_MDMCFG4, 0x5C);
+  // 0x5B / 0xF8 (99,98 kBaud, 325 kHz de bande) : etat du build de la PR #28, seul avec lequel
+  // des voisins Izar ont ete decodes sur ce montage. Avec 0x5C/0x04 (valeurs des projets de
+  // reference) : 0 detection en 60 s (mesure du 28/11 00:29).
+  this->write_register(CC1101_MDMCFG4, 0x5B);
   // MDMCFG3: Data rate mantissa
-  this->write_register(CC1101_MDMCFG3, 0x04);
+  this->write_register(CC1101_MDMCFG3, 0xF8);
   // MDMCFG2: Modulation format (2-FSK), sync mode (16/16 sync word bits)
   this->write_register(CC1101_MDMCFG2, 0x06);
   // MDMCFG1: FEC disabled, preamble 4 bytes
