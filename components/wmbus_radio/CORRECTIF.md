@@ -31,3 +31,7 @@ Limite : seules les trames de 45 octets codés sont reçues en entier. Les autre
 ## Registres d'origine rétablis (27/11/2026, soir)
 
 Après le passage à la longueur fixe, le journal ne montrait que du bruit : une « trame » de 45 octets toutes les secondes environ (RSSI vers -97 dBm), jamais de trame Izar valide. Seuls les registres d'origine (`MDMCFG4/3 = 0x5C/0x04`, `DEVIATN = 0x44`) avaient permis de recevoir de vraies trames (en-tête et CRC du 1er bloc valides) ; avec `0x7B/0xF8/0x50` de la PR IoTLabs, plus aucune n'était détectée. Ces trois valeurs sont donc revenues à l'origine, et seuls IOCFG0 (mot de synchro) et la longueur fixe restent modifiés.
+
+## Débit exact avec la bande d'origine (27/11/2026, nuit)
+
+Avec les registres d'origine et la lecture en longueur fixe, de vraies trames sont enfin reçues : elles commencent par `36 57 1C` (L = 0x19, C = 0x44 codés en 3 parmi 6, vérifié à la main), mais ensuite 1 à 2 bits par octet sont faux. Les erreurs commencent vers le 16e bit. Or le débit d'origine (`0x5C/0x04`) est de 103,2 kbit/s alors que le mode T1 est à 100 kbit/s : l'écart de 3 % décale l'instant d'échantillonnage d'une demi-période au bout de 16 bits. `MDMCFG4/3 = 0x5B/0xF8` donne 99,98 kbit/s en gardant la bande de 325 kHz (c'est la réduction de la bande à 232 kHz, avec la déviation modifiée, qui faisait manquer les trames). Hypothèse, à valider sur le matériel.
