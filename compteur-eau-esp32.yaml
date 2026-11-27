@@ -87,8 +87,14 @@ wmbus:
   cs_pin:
     number: GPIO5   # broche de démarrage, mais tirée au niveau haut : sans risque
     ignore_strapping_warning: true
-  gdo0_pin: GPIO26
-  gdo2_pin: GPIO33
+  # allow_other_uses : les deux broches sont aussi lues par les compteurs
+  # d'impulsions de diagnostic plus bas (lecture seule, sans effet sur la radio).
+  gdo0_pin:
+    number: GPIO26
+    allow_other_uses: true
+  gdo2_pin:
+    number: GPIO33
+    allow_other_uses: true
   frequency: 868.950
   # Journalise les trames des compteurs non configurés (voisins compris) avec
   # leur ID : utile pour trouver l'ID du compteur, à passer à false ensuite.
@@ -130,6 +136,26 @@ sensor:
       entity_category: diagnostic
     rssi:
       name: "Signal radio compteur"
+
+  # Diagnostic radio : impulsions par minute sur les sorties du CC1101.
+  # GDO2 monte à chaque début de trame détecté, GDO0 quand la trame remplit la
+  # mémoire tampon. Si GDO0 compte mais pas GDO2 : fil GDO2 -> IO33 à vérifier.
+  - platform: pulse_counter
+    name: "Radio GDO2 (débuts de trame)"
+    pin:
+      number: GPIO33
+      allow_other_uses: true
+    unit_of_measurement: "/min"
+    update_interval: 60s
+    entity_category: diagnostic
+  - platform: pulse_counter
+    name: "Radio GDO0 (données reçues)"
+    pin:
+      number: GPIO26
+      allow_other_uses: true
+    unit_of_measurement: "/min"
+    update_interval: 60s
+    entity_category: diagnostic
 
   - platform: wifi_signal
     name: "Signal WiFi"
