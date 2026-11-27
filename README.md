@@ -145,12 +145,14 @@ Si les logs affichent `(izar) Decoding PRIOS data failed. Ignoring telegram.`, l
 | [`exemples/compteur-eau.yaml`](exemples/compteur-eau.yaml) | Le fichier à créer dans ESPHome (3 substitutions) |
 | [`exemples/secrets.yaml.exemple`](exemples/secrets.yaml.exemple) | Les clés à mettre dans votre `secrets.yaml` |
 | [`docs/`](docs/) | Schéma de câblage (SVG + PNG) |
+| [`components/wmbus_radio/`](components/wmbus_radio/) | Copie corrigée du pilote radio CC1101, voir [`CORRECTIF.md`](components/wmbus_radio/CORRECTIF.md) |
 
 ## État
 
 - Syntaxe vérifiée sur `SzczepanLeon/esphome-components` (v5, commit `76dda80` du 22/11/2026).
 - La configuration passe `esphome config` (ESPHome 2026.11.1).
-- Compilation testée sur le matériel (ESP32 Mini + CC1101) : les trames Izar arrivent, en-tête correct, mais la suite est souvent corrompue et aucune ne passe encore le CRC. Diagnostic en cours.
+- Compilation testée sur le matériel (ESP32 Mini + CC1101) : avec le pilote `wmbus_radio` d'origine, les trames Izar arrivent avec un en-tête correct mais deviennent du bruit à partir du 32e octet.
+- Ce dépôt charge donc une copie corrigée de `wmbus_radio` (interruption sur le mot de synchro, débit radio de 100 kbit/s, voir [`CORRECTIF.md`](components/wmbus_radio/CORRECTIF.md)). Les autres parties du composant viennent du dépôt d'origine. Correctif en cours de validation sur le matériel.
 
 ## Licence
 
