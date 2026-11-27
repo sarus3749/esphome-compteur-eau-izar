@@ -13,7 +13,13 @@ static const char *TAG = "CC1101";
 
 void CC1101::setup() {
   this->common_setup();
+  this->configure_radio_();
+}
 
+// Réinitialise le CC1101 (reset logiciel puis tous les registres) et le remet en réception.
+// Appelée au démarrage et en secours quand la puce ne répond plus (MARCSTATE à 0x00 = SLEEP
+// alors que le code n'a jamais demandé la mise en veille : chute d'alimentation ou bus SPI).
+void CC1101::configure_radio_() {
   ESP_LOGV(TAG, "Setup");
 
   // CC1101 has no hardware reset pin — skip hardware reset, use software reset only
@@ -265,6 +271,14 @@ void CC1101::restart_rx() {
     if (now - this->last_idle_timeout_log_ >= 60000) {
       this->last_idle_timeout_log_ = now;
       ESP_LOGW(TAG, "CC1101 did not enter IDLE (MARCSTATE 0x%02X)", state);
+    }
+    // Correctif : la puce ne répond plus (SLEEP 0x00, ou SPI muet) : sans réinitialisation elle
+    // resterait sourde pour toujours. On refait le reset et la configuration, au plus une fois
+    // toutes les 5 s.
+    if ((state == 0x00 || state == 0x1F) && now - this->last_reinit_ms_ >= 5000) {
+      this->last_reinit_ms_ = now;
+      ESP_LOGW(TAG, "CC1101 ne repond plus (MARCSTATE 0x%02X) : reinitialisation", state);
+      this->configure_radio_();
     }
     return;
   }
