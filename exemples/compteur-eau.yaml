@@ -6,4 +6,8 @@ substitutions:
   meter_id: "0x13903750"        # ID radio du compteur, à confirmer dans les logs
 
 packages:
-  compteur: github://sarus3749/esphome-compteur-eau-izar/compteur-eau-esp32.yaml@main
+  compteur:
+    url: https://github.com/sarus3749/esphome-compteur-eau-izar
+    ref: main
+    files: [compteur-eau-esp32.yaml]
+    refresh: always   # sinon ESPHome garde la configuration en cache 24 h
