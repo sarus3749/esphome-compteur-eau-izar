@@ -29,14 +29,18 @@
 substitutions:
   name: compteur-eau
   friendly_name: Compteur eau
-  # Identifiant radio du compteur. A VERIFIER dans les logs au premier
-  # démarrage (voir « Trouver l'ID du compteur » dans le README). Valeur de
-  # départ : le TxS/N imprimé sur le module IZAR RC.
-  meter_id: "0x13903750"
+  # Identifiant radio du compteur, calculé depuis le numéro imprimé sur le
+  # compteur (H21CA112674 : 0x20000000 + 21112674 = 0x21422762), règle du
+  # driver izar de wmbusmeters. A confirmer dans les logs.
+  meter_id: "0x21422762"
 
 esphome:
   name: ${name}
   friendly_name: ${friendly_name}
+  # Le composant wmbus inclut <WiFiClient.h> et <WiFiUdp.h> : depuis 2026.11,
+  # ESPHome ne compile plus les bibliothèques Arduino non demandées.
+  libraries:
+    - WiFi
 
 esp32:
   board: wemos_d1_mini32
