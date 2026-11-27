@@ -1,5 +1,7 @@
 #include "component.h"
 
+#include "esphome/core/hal.h"
+
 #include "freertos/queue.h"
 #include "freertos/task.h"
 
@@ -39,9 +41,24 @@ void Radio::setup() {
 }
 
 void Radio::loop() {
+  const uint32_t now = millis();
+  if (now - this->stat_last_log_ms_ >= 60000) {
+    if (this->stat_last_log_ms_ != 0) {
+      ESP_LOGI(TAG, "STATS RADIO (60 s) : %u detections, %u trames de 45 octets, %u avec CRC valide",
+               (unsigned) this->stat_detections_, (unsigned) this->stat_full_frames_,
+               (unsigned) this->stat_crc_ok_);
+    }
+    this->stat_last_log_ms_ = now;
+    this->stat_detections_ = this->stat_full_frames_ = this->stat_crc_ok_ = 0;
+  }
+
   Packet *p;
   if (xQueueReceive(this->packet_queue_, &p, 0) != pdPASS)
     return;
+
+  this->stat_detections_++;
+  if (p->raw_size() == 45)
+    this->stat_full_frames_++;
 
   // ESP_LOGI(TAG, "Have RAW data from radio (%zu bytes)",
   //          p->calculate_payload_size());
@@ -50,6 +67,8 @@ void Radio::loop() {
 
   if (!frame)
     return;
+
+  this->stat_crc_ok_++;
 
   ESP_LOGV(TAG, "Have data (%zu bytes) [RSSI: %ddBm, mode: %s %s]",
            frame->data().size(), frame->rssi(), toString(frame->link_mode()),
