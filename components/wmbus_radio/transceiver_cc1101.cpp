@@ -92,12 +92,12 @@ void CC1101::configure_radio_() {
   // Modem configuration for 100 kbps, 2-FSK, 50 kHz deviation
   // MDMCFG4: Channel bandwidth and data rate exponent
   // BW = f_xtal / (8 * (4 + CHANBW_M) * 2^CHANBW_E) = 26M / (8 * 4 * 4) = ~203 kHz
-  // 0x5B / 0xF8 : 99,98 kbit/s, soit les 100 kchip/s du wM-Bus T1. Mesure d'Adrien : avec ces
-  // valeurs plusieurs trames etaient decodees avec CRC valide ; avec 0x5C/0x04 (103,15 kbit/s,
-  // PR #29) : 0 trame sur 7 en 5 minutes. On revient donc a 0x5B/0xF8 (retour de la PR #29).
-  this->write_register(CC1101_MDMCFG4, 0x5B);
+  // 0x5C / 0x04 : valeurs identiques a maciekn/izar-wmbus-esp, zibous, Albert221 et ryszardlet
+  // (configurations Izar T1 sur CC1101 qui fonctionnent, base TI SWRA234A). Par le calcul de la
+  // datasheet (p.76) cela donne 103,15 kBaud et 325 kHz de bande.
+  this->write_register(CC1101_MDMCFG4, 0x5C);
   // MDMCFG3: Data rate mantissa
-  this->write_register(CC1101_MDMCFG3, 0xF8);
+  this->write_register(CC1101_MDMCFG3, 0x04);
   // MDMCFG2: Modulation format (2-FSK), sync mode (16/16 sync word bits)
   this->write_register(CC1101_MDMCFG2, 0x06);
   // MDMCFG1: FEC disabled, preamble 4 bytes
@@ -127,10 +127,8 @@ void CC1101::configure_radio_() {
   // AGC control
   this->write_register(CC1101_AGCCTRL2, 0x43);
   this->write_register(CC1101_AGCCTRL1, 0x09);
-  // AGCCTRL0 (datasheet SWRS061I p.87) : HYST 10, WAIT_TIME 11, AGC_FREEZE 00 (gain ajuste en
-  // permanence, valeur par defaut de la fiche), FILTER_LENGTH 01. Avant : 0xB5 (AGC_FREEZE 01 =
-  // gain fige des que le mot de synchro est trouve).
-  this->write_register(CC1101_AGCCTRL0, 0xB1);
+  // AGCCTRL0 0xB5 : identique aux quatre configurations Izar de reference (gain fige apres synchro).
+  this->write_register(CC1101_AGCCTRL0, 0xB5);
 
   ESP_LOGVV(TAG, "configuring WOR");
   // Wake-on-Radio: disabled (but configured for compatibility)
