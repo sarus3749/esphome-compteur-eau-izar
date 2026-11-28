@@ -57,14 +57,7 @@ external_components:
     refresh: 1d
 
 logger:
-  level: DEBUG
-  logs:
-    # Mise au point du pilote radio : trame lue dans la FIFO, trame trop courte…
-    CC1101: DEBUG
-    # Mise au point : taille, RSSI et contenu de chaque trame reçue.
-    # Passer ces deux lignes à INFO une fois l'ID du compteur trouvé.
-    packet: DEBUG
-    wmbusmeters: DEBUG
+  level: INFO
 
 api:
   encryption:
@@ -106,13 +99,6 @@ wmbus_radio:
     ignore_strapping_warning: true
   irq_pin: GPIO26   # GDO0
   frequency: 868.95MHz
-  # Journalise chaque trame reçue (tous compteurs du voisinage compris).
-  # Utile pour trouver l'ID du compteur ; peut être retiré ensuite.
-  on_frame:
-    - then:
-        - logger.log:
-            format: "Trame recue : RSSI=%d dBm, mode=%s, data=%s"
-            args: [ 'frame->rssi()', 'toString(frame->link_mode())', 'frame->as_hex().c_str()' ]
 
 # Ne compile que le driver Izar (gain de flash et de temps de compilation)
 wmbus_common:
@@ -121,19 +107,6 @@ wmbus_common:
 
 # -------------------------------------------------------------- Compteur -----
 wmbus_meter:
-  # Diagnostic : décode et journalise (niveau INFO, en JSON avec l'ID et total_m3)
-  # TOUS les compteurs Izar reçus. Sert à vérifier que le décodage de l'index
-  # marche et à reconnaître le sien en comparant l'index au cadran. A retirer ensuite.
-  - id: tous_les_compteurs
-    meter_id: "*"
-    type: izar
-    mode:
-      - T1
-    on_telegram:
-      - logger.log:
-          format: "COMPTEUR IZAR : %s"
-          args: [ 'meter.as_json().c_str()' ]
-          level: INFO
   - id: compteur_eau
     meter_id: ${meter_id}
     type: izar

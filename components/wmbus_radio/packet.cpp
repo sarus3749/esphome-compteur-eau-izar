@@ -104,9 +104,6 @@ bool Packet::calculate_payload_size() {
 std::optional<Frame> Packet::convert_to_frame() {
   std::optional<Frame> frame = {};
 
-  ESP_LOGD(TAG, "Have data from radio (%zu bytes, RSSI %d dBm)", this->data_.size(), this->rssi_);
-  debugPayload("raw packet", this->data_);
-
   if (this->expected_size() == this->data_.size()) {
     if (this->link_mode() == LinkMode::T1) {
       // TODO: Remove assumption that T1 is always A

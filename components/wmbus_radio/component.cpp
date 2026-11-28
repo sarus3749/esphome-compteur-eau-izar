@@ -41,34 +41,14 @@ void Radio::setup() {
 }
 
 void Radio::loop() {
-  const uint32_t now = millis();
-  if (now - this->stat_last_log_ms_ >= 60000) {
-    if (this->stat_last_log_ms_ != 0) {
-      ESP_LOGI(TAG, "STATS RADIO (60 s) : %u detections, %u trames de 45 octets, %u avec CRC valide",
-               (unsigned) this->stat_detections_, (unsigned) this->stat_full_frames_,
-               (unsigned) this->stat_crc_ok_);
-    }
-    this->stat_last_log_ms_ = now;
-    this->stat_detections_ = this->stat_full_frames_ = this->stat_crc_ok_ = 0;
-  }
-
   Packet *p;
   if (xQueueReceive(this->packet_queue_, &p, 0) != pdPASS)
     return;
-
-  this->stat_detections_++;
-  if (p->raw_size() == 45)
-    this->stat_full_frames_++;
-
-  // ESP_LOGI(TAG, "Have RAW data from radio (%zu bytes)",
-  //          p->calculate_payload_size());
 
   auto frame = p->convert_to_frame();
 
   if (!frame)
     return;
-
-  this->stat_crc_ok_++;
 
   ESP_LOGV(TAG, "Have data (%zu bytes) [RSSI: %ddBm, mode: %s %s]",
            frame->data().size(), frame->rssi(), toString(frame->link_mode()),
@@ -81,15 +61,15 @@ void Radio::loop() {
   if (frame->handlers_count())
     ESP_LOGV(TAG, "Telegram handled by %d handlers", frame->handlers_count());
   else {
-    ESP_LOGW(TAG, "Telegram not handled by any handler");
+    ESP_LOGD(TAG, "Telegram not handled by any handler");
     Telegram t;
     if (t.parseHeader(frame->data()) && t.addresses.empty()) {
-      ESP_LOGW(TAG, "Check if telegram can be parsed on:");
+      ESP_LOGD(TAG, "Check if telegram can be parsed on:");
     } else {
-      ESP_LOGW(TAG, "Check if telegram with address %s can be parsed on:",
+      ESP_LOGD(TAG, "Check if telegram with address %s can be parsed on:",
                t.addresses.back().id.c_str());
     }
-    ESP_LOGW(TAG,
+    ESP_LOGD(TAG,
              (std::string{"https://wmbusmeters.org/analyze/"} + frame->as_hex())
                  .c_str());
   }
