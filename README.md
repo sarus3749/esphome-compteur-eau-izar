@@ -81,7 +81,7 @@ Dans ESPHome Device Builder, créer un appareil et remplacer son contenu par (vo
 substitutions:
   name: compteur-eau            # nom réseau (minuscules, tirets)
   friendly_name: Compteur eau   # nom de l'appareil dans Home Assistant
-  meter_id: "0x21422762"        # ID radio du compteur, à confirmer dans les logs
+  meter_id: "0x21425180"        # ID radio de VOTRE compteur (exemple factice), à confirmer dans les logs
 
 packages:
   compteur:
@@ -102,7 +102,7 @@ La première compilation est longue (téléchargement d'esp-idf et du composant)
 
 ### 4. Trouver l'ID du compteur
 
-L'ID radio se calcule depuis le numéro imprimé **sur le compteur** (forme `H21CA112674` : lettre, année sur 2 chiffres, 2 lettres, 6 chiffres) : `0x20000000 + année × 1 000 000 + n° de série`, soit `0x21422762` pour `H21CA112674` (règle du driver izar de wmbusmeters, reprise par [Raithmir/WaterMeter](https://raithmir.github.io/WaterMeter/meter-id/)). Le TxS/N du module radio ne sert pas. Ouvrez les logs pour confirmer :
+L'ID radio se calcule depuis le numéro imprimé **sur le compteur** (forme `H21XA123456` : lettre, année sur 2 chiffres, 2 lettres, 6 chiffres) : `0x20000000 + année × 1 000 000 + n° de série`, soit `0x21425180` pour `H21XA123456` (exemple factice) (règle du driver izar de wmbusmeters, reprise par [Raithmir/WaterMeter](https://raithmir.github.io/WaterMeter/meter-id/)). Le TxS/N du module radio ne sert pas. Ouvrez les logs pour confirmer :
 
 - compteur trouvé : ligne `Telegramme du compteur d'eau decode`, et l'index s'affiche ;
 - sinon : `Telegram not handled by any handler` puis `Check if telegram with address XXXXXXXX can be parsed on: …`. Repérez l'adresse qui revient toutes les 8 à 32 s avec un bon RSSI, mettez-la dans `meter_id: "0xXXXXXXXX"` et réinstallez sans fil.

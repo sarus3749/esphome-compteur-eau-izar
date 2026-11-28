@@ -31,10 +31,10 @@
 substitutions:
   name: compteur-eau
   friendly_name: Compteur eau
-  # Identifiant radio du compteur, calculé depuis le numéro imprimé sur le
-  # compteur (H21CA112674 : 0x20000000 + 21112674 = 0x21422762), règle du
-  # driver izar de wmbusmeters. A confirmer dans les logs.
-  meter_id: "0x21422762"
+  # Identifiant radio du compteur : A RENSEIGNER dans votre fichier d'appareil
+  # (voir le README, « Trouver l'ID du compteur »). Valeur factice par défaut :
+  # tant qu'elle n'est pas remplacée, aucun compteur n'est décodé.
+  meter_id: "0x00000000"
 
 esphome:
   name: ${name}
