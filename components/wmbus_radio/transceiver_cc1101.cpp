@@ -389,16 +389,15 @@ bool CC1101::read_in_task(uint8_t *buffer, size_t length, uint32_t offset) {
     if (available > sizeof(this->frame_buf_))
       available = sizeof(this->frame_buf_);
     // Lecture octet par octet (acces simple, datasheet SWRS061I p.30) au lieu d'une rafale : les
-    // fins de trames recues contiennent des octets identiques repetes (34 34 34...), ce qui
-    // ressemble a une lecture de FIFO qui se repete. Test de cette hypothese.
+    // Lecture octet par octet : une lecture en rafale de la FIFO repetait des octets en fin de
+    // trame (voir CORRECTIF.md).
     for (uint8_t i = 0; i < available; i++)
       this->frame_buf_[i] = this->read_register(CC1101_RXFIFO);
     this->frame_len_ = available;
-    ESP_LOGD(TAG, "Trame lue : %u octets, RSSI brut %d", (unsigned) available, (int) this->last_rssi_);
   }
 
   if (this->frame_pos_ + length > this->frame_len_) {
-    ESP_LOGD(TAG, "Trame trop courte : %u octets lus, %u demandes a partir de %u",
+    ESP_LOGV(TAG, "Trame trop courte : %u octets lus, %u demandes a partir de %u",
              (unsigned) this->frame_len_, (unsigned) length, (unsigned) this->frame_pos_);
     return false;
   }

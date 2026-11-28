@@ -40,12 +40,6 @@ protected:
   QueueHandle_t packet_queue_{nullptr};
 
   std::vector<std::function<void(Frame *)>> handlers_;
-
-  // Statistiques de réception, journalisées toutes les 60 s (mesure du taux de trames propres).
-  uint32_t stat_detections_{0};   // paquets sortis de la radio (bruit compris)
-  uint32_t stat_full_frames_{0};  // paquets de 45 octets (en-tête lisible, trame Izar complète)
-  uint32_t stat_crc_ok_{0};       // trames dont tous les CRC sont justes
-  uint32_t stat_last_log_ms_{0};
 };
 } // namespace wmbus_radio
 } // namespace esphome

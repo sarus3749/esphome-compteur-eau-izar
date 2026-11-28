@@ -105,9 +105,7 @@ La première compilation est longue (téléchargement d'esp-idf et du composant)
 L'ID radio se calcule depuis le numéro imprimé **sur le compteur** (forme `H21XA123456` : lettre, année sur 2 chiffres, 2 lettres, 6 chiffres) : `0x20000000 + année × 1 000 000 + n° de série`, soit `0x21425180` pour `H21XA123456` (exemple factice) (règle du driver izar de wmbusmeters, reprise par [Raithmir/WaterMeter](https://raithmir.github.io/WaterMeter/meter-id/)). Le TxS/N du module radio ne sert pas. Ouvrez les logs pour confirmer :
 
 - compteur trouvé : ligne `Telegramme du compteur d'eau decode`, et l'index s'affiche ;
-- sinon : `Telegram not handled by any handler` puis `Check if telegram with address XXXXXXXX can be parsed on: …`. Repérez l'adresse qui revient toutes les 8 à 32 s avec un bon RSSI, mettez-la dans `meter_id: "0xXXXXXXXX"` et réinstallez sans fil.
-
-Chaque trame reçue (y compris celles des compteurs voisins) est aussi journalisée avec son RSSI. Une fois l'ID confirmé, vous pouvez retirer le bloc `on_frame` si vous utilisez une copie du fichier.
+- sinon, passez le niveau du journal à `DEBUG` (`logger: level: DEBUG` dans le fichier de l'appareil) : chaque trame d'un autre compteur est signalée par `Check if telegram with address XXXXXXXX can be parsed on: …`. Repérez l'adresse qui revient toutes les 8 à 32 s avec un bon RSSI, mettez-la dans `meter_id: "0xXXXXXXXX"` et réinstallez sans fil.
 
 ## Dans Home Assistant
 
@@ -122,7 +120,8 @@ Chaque trame reçue (y compris celles des compteurs voisins) est aussi journalis
 | Alarmes précédentes | Diagnostic | |
 | Date du relevé mensuel | Diagnostic | |
 | Signal WiFi, Uptime, Statut | Diagnostic | |
-| Redémarrer | Diagnostic | |
+| Redémarrer | Diagnostic | Redémarre l'ESP32 |
+| Réinitialiser la radio | Diagnostic | Réinitialise le CC1101 sans redémarrer l'ESP32 |
 
 **Tableau de bord Eau** : *Paramètres → Tableaux de bord → Énergie → Consommation d'eau → Ajouter une source* → `Index eau`. Les statistiques se remplissent à partir de l'heure suivante.
 
@@ -153,10 +152,8 @@ Si les logs affichent `(izar) Decoding PRIOS data failed. Ignoring telegram.`, l
 
 ## État
 
-- Composant v5 de `SzczepanLeon/esphome-components` (commit `76dda80` du 22/11/2026) pour tout sauf le pilote radio.
-- La configuration passe `esphome config` (ESPHome 2026.11.1). Le pilote CC1101 corrigé passe un contrôle de syntaxe C++ (compilation complète impossible hors de la machine d'installation).
-- Historique sur le matériel (ESP32 Mini + CC1101) : avec le pilote d'origine, les trames Izar arrivaient avec un en-tête correct mais devenaient du bruit à partir du 32e octet, quel que soit le réglage de la FIFO. La v4 et la v3 du composant `wmbus` (bibliothèque SmartRC) ont aussi été essayées : plantage au démarrage de la réception pour la v4, aucune trame décodée pour la v3.
-- Ce dépôt charge donc une copie de `wmbus_radio` avec un pilote CC1101 en **longueur fixe** (45 octets, la taille d'une trame Izar T1) : la trame entière est lue dans la FIFO une fois la réception terminée, voir [`CORRECTIF.md`](components/wmbus_radio/CORRECTIF.md). Réception validée sur le matériel : le compteur est décodé depuis le 28/11/2026 (la cause était la lecture de la FIFO en rafale, remplacée par une lecture octet par octet).
+- Composant v5 de `SzczepanLeon/esphome-components` pour tout sauf le pilote radio, qui est une copie corrigée (voir [`CORRECTIF.md`](components/wmbus_radio/CORRECTIF.md)).
+- Réception validée sur le matériel (ESP32 Mini + CC1101) : l'index, l'index du mois précédent, l'autonomie de la pile et le RSSI sont décodés.
 
 ## Licence
 
