@@ -24,6 +24,11 @@ public:
   void loop() override;
   void receive_frame();
 
+  void request_radio_reset() {
+    if (this->radio != nullptr)
+      this->radio->request_reset();
+  }
+
   void add_frame_handler(std::function<void(Frame *)> &&callback);
 
 protected:

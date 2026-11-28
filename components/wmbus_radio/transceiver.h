@@ -32,6 +32,10 @@ public:
   virtual void setup() override = 0;
   void dump_config() override;
 
+  // Demande une réinitialisation de la radio. Appelable depuis n'importe quelle tâche : elle est
+  // exécutée par la tâche de réception, qui est la seule à utiliser le bus SPI.
+  void request_reset() { this->reset_requested_ = true; }
+
   template <typename T>
   void attach_data_interrupt(void (*callback)(T *), T *arg) {
     this->irq_pin_->attach_interrupt(callback, arg, this->get_interrupt_type());
@@ -68,6 +72,7 @@ public:
   void set_tcxo(bool enable);
 
 protected:
+  volatile bool reset_requested_{false};
   GPIOPin *reset_pin_{nullptr};
   InternalGPIOPin *irq_pin_{nullptr};
   GPIOPin *busy_pin_{nullptr};  // Optional, used by SX1262

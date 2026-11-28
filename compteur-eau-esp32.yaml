@@ -234,6 +234,9 @@ binary_sensor:
     name: "Statut"
 
 button:
+  # Réinitialise le CC1101 (reset logiciel + tous les registres) sans redémarrer l'ESP32
+  - platform: wmbus_radio
+    name: "Réinitialiser la radio"
   - platform: restart
     name: "Redémarrer"
     entity_category: diagnostic
