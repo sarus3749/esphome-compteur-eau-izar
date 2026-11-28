@@ -262,6 +262,15 @@ size_t CC1101::get_frame(uint8_t *buffer, size_t length, uint32_t offset) {
 void CC1101::restart_rx() {
   ESP_LOGVV(TAG, "Restarting RX");
 
+  // Réinitialisation demandée (bouton Home Assistant) : même procédure qu'au démarrage.
+  if (this->reset_requested_) {
+    this->reset_requested_ = false;
+    ESP_LOGW(TAG, "Reinitialisation du CC1101 demandee");
+    this->last_reinit_ms_ = millis();
+    this->configure_radio_();
+    return;
+  }
+
   // Go to IDLE state. Poll MARCSTATE instead of delay(1), bounded at 5 ms so a
   // missing or stuck chip cannot hang the radio task.
   this->strobe(CC1101_SIDLE);
@@ -307,6 +316,8 @@ uint8_t CC1101::wait_marcstate_(uint8_t state, uint32_t timeout_us) {
 }
 
 bool CC1101::idle_restart_ready() {
+  if (this->reset_requested_)
+    return true;
   // TI SWRS061I, PKTSTATUS: SFD bit 3, GDO2 bit 2, GDO0 bit 0.
   // GDO status is non-inverted, even with IOCFG2=0x46 and IOCFG0=0x40.
   // A set bit means sync/FIFO activity; do not refresh in that case.
